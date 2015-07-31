@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>WebStore Exercise</title>
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script>
+        function logout() {
+            $('#message').html("Logging out...");
+            $.ajax({
+                url: "http://localhost:8081/logout",
+                type: "POST",
+                dataType: "json",
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success: function (data) {
+                    checkSession();
+                },
+                error: function (data) {
+                    $('#message').html("Could not reach the server, please try again later");
+                }
+            });
+        }
+        function checkSession() {
+            $('#message').html("Loading...");
+            $.ajax({
+                url: "http://localhost:8081/has-session",
+                type: "GET",
+                dataType: "json",
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success: function (data) {
+                    $('#message').html("");
+                    if (data.hasSession) {
+                        $('#content').html("<ul><li><a href='#' onClick='logout();'>Log out</a></li></ul>");
+                    } else {
+                        $('#content').html("<ul><li><a href='/login.html'>Log in</a></li><li><a href='/register.html'>Register</a></li></ul>");
+                    }
+                },
+                error: function (data) {
+                    $('#message').html("Could not reach the server, please try again later");
+                }
+            });
+        }
+    </script>
+</head>
+<body onLoad="checkSession();">
+<h1>WebStore Exercise</h1>
+
+<div id="message"></div>
+<div id="content"></div>
+</body>
+</html>
