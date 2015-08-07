@@ -9,10 +9,6 @@
                 url: "http://localhost:8081/logout",
                 type: "POST",
                 dataType: "json",
-                xhrFields: {
-                    withCredentials: true
-                },
-                crossDomain: true,
                 success: function (data) {
                     checkSession();
                 },
@@ -24,16 +20,12 @@
         function checkSession() {
             $('#message').html("Loading...");
             $.ajax({
-                url: "http://localhost:8081/has-session",
+                url: "http://localhost:8081/read-user",
                 type: "GET",
                 dataType: "json",
-                xhrFields: {
-                    withCredentials: true
-                },
-                crossDomain: true,
                 success: function (data) {
                     $('#message').html("");
-                    if (data.hasSession) {
+                    if (data.success) {
                         $('#content').html("<ul><li><a href='#' onClick='logout();'>Log out</a></li></ul>");
                     } else {
                         $('#content').html("<ul><li><a href='/login.html'>Log in</a></li><li><a href='/register.html'>Register</a></li></ul>");
@@ -48,7 +40,6 @@
 </head>
 <body onLoad="checkSession();">
 <h1>WebStore Exercise</h1>
-
 <div id="message"></div>
 <div id="content"></div>
 </body>

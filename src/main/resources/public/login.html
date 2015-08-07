@@ -13,15 +13,12 @@
                     email: $('#email').val(),
                     password: $('#password').val()
                 }),
-                xhrFields: {
-                    withCredentials: true
-                },
                 crossDomain: true,
                 success: function (data) {
                     if (data.success)
                         window.location = "/index.html"
-                    else
-                        $('#message').html(data.message);
+                    else if (data.invalidEmailOrPassword)
+                        $('#message').html("Invalid e-mail or password");
                 },
                 error: function (data) {
                     $('#message').html("Could not reach the server, please try again later");
@@ -34,9 +31,7 @@
 <body>
 <form>
     <p><input type="text" id="email" value="" placeholder="e-mail"></p>
-
     <p><input type="password" id="password" value="" placeholder="password"></p>
-
     <p><input type="button" value="Log in" onClick="login();"></p>
 </form>
 <div id="message"></div>

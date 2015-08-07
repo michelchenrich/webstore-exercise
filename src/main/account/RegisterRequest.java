@@ -1,4 +1,4 @@
-package webstore;
+package main.account;
 
 public class RegisterRequest {
     public String email;

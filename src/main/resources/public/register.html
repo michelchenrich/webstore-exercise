@@ -14,15 +14,11 @@
                     password: $('#password').val(),
                     passwordConfirmation: $('#passwordConfirmation').val()
                 }),
-                xhrFields: {
-                    withCredentials: true
-                },
-                crossDomain: true,
                 success: function (data) {
                     if (data.success)
                         window.location = "/index.html"
                     else
-                        $('#message').html(data.message);
+                        $('#message').html("Something went wrong...");
                 },
                 error: function (data) {
                     $('#message').html("Could not reach the server, please try again later");
