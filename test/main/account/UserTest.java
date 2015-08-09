@@ -63,8 +63,8 @@ public class UserTest {
     }
 
     @Test
-    public void userKeepsTheEmailSet_asIs() {
-        String email = "  whatever   ";
+    public void userKeepsTheEmailSet() {
+        String email = "whatever";
         setEmail(user, email);
         assertEmail(user, email);
     }

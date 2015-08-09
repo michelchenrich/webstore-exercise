@@ -4,11 +4,23 @@ public class Email {
     private final String value;
 
     public Email(String value) {
-        this.value = value;
+        this.value = value == null ? "" : value.trim();
     }
 
     public boolean isValid() {
-        return !value.isEmpty();
+        return hasOnlyOneAtSymbol() && hasAccountPart() && hasHostPart();
+    }
+
+    private boolean hasAccountPart() {
+        return value.indexOf('@') > 0;
+    }
+
+    private boolean hasHostPart() {
+        return value.indexOf('@') < value.length() - 1;
+    }
+
+    private boolean hasOnlyOneAtSymbol() {
+        return value.indexOf('@') == value.lastIndexOf('@');
     }
 
     public String toString() {
