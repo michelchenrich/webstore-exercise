@@ -1,12 +1,6 @@
 package main.account;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class InMemoryUserRepository implements UserRepository {
-    private int incrementalId;
-    private Map<String, User> users = new HashMap<>();
-
+public class InMemoryUserRepository extends InMemoryRepository<User> implements UserRepository {
     public boolean hasWithEmail(Email email) {
         return findByEmail(email) != null;
     }
@@ -18,35 +12,10 @@ public class InMemoryUserRepository implements UserRepository {
         return match.copy();
     }
 
-    public void save(User user) {
-        ensureId(user);
-        users.put(user.getId(), user.copy());
-    }
-
-    public User getById(String id) {
-        if (hasWithId(id))
-            return users.get(id);
-        else
-            throw new EntityNotFoundException();
-    }
-
-    public boolean hasWithId(String id) {
-        return users.containsKey(id);
-    }
-
     private User findByEmail(Email email) {
-        for (User user : users.values())
+        for (User user : getEntities())
             if (user.getEmail().equals(email))
                 return user;
         return null;
-    }
-
-    private void ensureId(User user) {
-        if (!user.hasId())
-            user.setId(makeNextId());
-    }
-
-    private String makeNextId() {
-        return String.valueOf(++incrementalId);
     }
 }

@@ -4,16 +4,11 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UserTest {
+public class UserTest extends EntityTest {
     private User user;
 
-    private void setId(User user, String id) {
-        user.setId(id);
-    }
-
-    private void assertId(User user, boolean hasId, String id) {
-        assertEquals(hasId, user.hasId());
-        assertEquals(id, user.getId());
+    protected Entity getEntity() {
+        return user;
     }
 
     private void setEmail(User user, String email) {
@@ -39,27 +34,8 @@ public class UserTest {
 
     @Test
     public void newUser_hasEmptyAttributes() {
-        assertId(user, false, "");
         assertEmail(user, "");
         assertPassword(user, "");
-    }
-
-    @Test
-    public void afterSettingAnId_itMustHaveTheId() {
-        setId(user, "id");
-        assertId(user, true, "id");
-    }
-
-    @Test
-    public void settingAnIdWithOnlySpacesIsNotValid() {
-        setId(user, "   ");
-        assertId(user, false, "");
-    }
-
-    @Test
-    public void settingANullIdIsNotValid() {
-        setId(user, null);
-        assertId(user, false, "");
     }
 
     @Test

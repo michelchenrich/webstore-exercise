@@ -1,9 +1,6 @@
 package main.account;
 
-public interface UserRepository {
+public interface UserRepository extends Repository<User> {
     boolean hasWithEmail(Email email);
     User getByEmail(Email email);
-    void save(User user);
-    User getById(String id);
-    boolean hasWithId(String id);
 }
