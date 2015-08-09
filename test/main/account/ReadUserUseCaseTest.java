@@ -16,7 +16,7 @@ public class ReadUserUseCaseTest {
     private void givenRegisteredUser(String email) {
         RegisterRequest request = new RegisterRequest();
         request.email = email;
-        request.password = request.passwordConfirmation = "some password";
+        request.password = request.passwordConfirmation = "Passw0rd";
         RegisterResponse response = new RegisterResponse();
         new RegisterUseCase(repository, request, response).execute();
         idToRead = response.id;

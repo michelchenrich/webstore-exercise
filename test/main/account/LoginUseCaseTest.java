@@ -54,22 +54,22 @@ public class LoginUseCaseTest {
 
     @Test
     public void whenNoUserExists_logInMustReturnError() {
-        givenLogInData("email@host.com", "password");
+        givenLogInData("email@host.com", "Passw0rd");
         whenLoggingIn();
         thenEmailOrPasswordShouldBeInvalid();
     }
 
     @Test
     public void givenAUser_butLoggingWithAnotherEmail_itMustReturnError() {
-        givenUser("email@host.com", "password");
-        givenLogInData("another.email@host.com", "password");
+        givenUser("email@host.com", "Passw0rd");
+        givenLogInData("another.email@host.com", "Passw0rd");
         whenLoggingIn();
         thenEmailOrPasswordShouldBeInvalid();
     }
 
     @Test
     public void givenAUser_butLoggingWithIncorrectPassword_itMustReturnError() {
-        givenUser("email@host.com", "password");
+        givenUser("email@host.com", "Passw0rd");
         givenLogInData("email@host.com", "incorrect password");
         whenLoggingIn();
         thenEmailOrPasswordShouldBeInvalid();
@@ -77,8 +77,8 @@ public class LoginUseCaseTest {
 
     @Test
     public void givenAUser_andLoggingWithCorrectData_itMustBeSuccessful() {
-        givenUser("email@host.com", "password");
-        givenLogInData("email@host.com", "password");
+        givenUser("email@host.com", "Passw0rd");
+        givenLogInData("email@host.com", "Passw0rd");
         whenLoggingIn();
         thenItMustHaveLoggedInWithUser("email@host.com");
     }

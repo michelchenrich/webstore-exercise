@@ -75,23 +75,23 @@ public class RegisterUseCaseTest {
 
     @Test
     public void whenRegisteringWithValidData_itMustReturnTheUserId_andBeSuccessful() {
-        givenRegistrationData("email@host.com", "password", "password");
+        givenRegistrationData("email@host.com", "Passw0rd", "Passw0rd");
         whenRegistering();
         thenItShouldBeSuccessful();
-        andItShouldBePossibleToLogInWith("email@host.com", "password");
+        andItShouldBePossibleToLogInWith("email@host.com", "Passw0rd");
     }
 
     @Test
     public void whenRegisteringWithAnInvalidEmail_itMustReturnTheError() {
-        givenRegistrationData("", "password", "password");
+        givenRegistrationData("", "Passw0rd", "Passw0rd");
         whenRegistering();
         thenItShouldReturnTheErrors("invalidEmail");
-        andItShouldNotBePossibleToLogInWith("", "password");
+        andItShouldNotBePossibleToLogInWith("", "Passw0rd");
     }
 
     @Test
     public void whenRegisteringWithIncorrectPasswordConfirmation_itMusReturnTheError() {
-        givenRegistrationData("email@host.com", "password1", "password2");
+        givenRegistrationData("email@host.com", "Passw0rd", "PasswOrd2");
         whenRegistering();
         thenItShouldReturnTheErrors("invalidPasswordConfirmation");
         andItShouldNotBePossibleToLogInWith("email@host.com", "password1");
@@ -107,7 +107,7 @@ public class RegisterUseCaseTest {
 
     @Test
     public void whenRegisteringWithAllDataBeingInvalid_itMustReturnAllErrors() {
-        givenRegistrationData("", "", "password2");
+        givenRegistrationData("", "", "PasswOrd2");
         whenRegistering();
         thenItShouldReturnTheErrors("invalidEmail", "invalidPassword", "invalidPasswordConfirmation");
         andItShouldNotBePossibleToLogInWith("", "");
