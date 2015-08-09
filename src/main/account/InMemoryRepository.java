@@ -5,26 +5,26 @@ import java.util.Map;
 
 public class InMemoryRepository<TEntity extends Entity> implements Repository<TEntity> {
     private int incrementalId;
-    private Map<String, TEntity> users = new HashMap<>();
+    private Map<String, TEntity> entities = new HashMap<>();
 
     public void save(TEntity entity) {
         ensureId(entity);
-        users.put(entity.getId(), entity.copy());
+        entities.put(entity.getId(), entity.copy());
     }
 
     public TEntity getById(String id) {
         if (hasWithId(id))
-            return users.get(id);
+            return entities.get(id);
         else
             throw new EntityNotFoundException();
     }
 
     public boolean hasWithId(String id) {
-        return users.containsKey(id);
+        return entities.containsKey(id);
     }
 
     protected Iterable<TEntity> getEntities() {
-        return users.values();
+        return entities.values();
     }
 
     private void ensureId(TEntity entity) {
