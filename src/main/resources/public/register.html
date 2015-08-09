@@ -16,9 +16,20 @@
                 }),
                 success: function (data) {
                     if (data.success)
-                        window.location = "/index.html"
-                    else
-                        $('#message').html("Something went wrong...");
+                        window.location = "/index.html";
+                    else {
+                        $('#message').html("");
+                        if (data.invalidEmail)
+                            $('#message').html($('#message').html() +
+                                    "Invalid e-mail, please use the following format: email@host.com");
+                        if (data.invalidPassword)
+                            $('#message').html($('#message').html() + "<br/>" +
+                                    "Invalid password, it must contain at least 8 characters, with at least " +
+                                    "one upper case letter, a lower case letter, and a number");
+                        if (data.invalidPasswordConfirmation)
+                            $('#message').html($('#message').html() + "<br/>" +
+                                    "Invalid password confimration, it must match the password");
+                    }
                 },
                 error: function (data) {
                     $('#message').html("Could not reach the server, please try again later");
