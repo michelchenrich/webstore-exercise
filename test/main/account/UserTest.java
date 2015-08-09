@@ -1,6 +1,6 @@
 package main.account;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,70 +14,91 @@ public class UserTest {
 
     @Test
     public void newUser_hasEmptyAttributes() {
-        assertFalse(user.hasId());
-        assertEquals("", user.getId());
-        assertEquals("", user.getEmail());
-        assertEquals("", user.getPassword());
+        assertId(user, false, "");
+        assertEmail(user, "");
+        assertPassword(user, "");
     }
 
     @Test
     public void afterSettingAnId_itMustHaveTheId() {
-        user.setId("id");
-        assertTrue(user.hasId());
-        assertEquals("id", user.getId());
+        setId(user, "id");
+        assertId(user, true, "id");
     }
 
     @Test
     public void settingAnIdWithOnlySpacesIsNotValid() {
-        user.setId("   ");
-        assertFalse(user.hasId());
-        assertEquals("", user.getId());
+        setId(user, "   ");
+        assertId(user, false, "");
     }
 
     @Test
     public void settingANullIdIsNotValid() {
-        user.setId(null);
-        assertFalse(user.hasId());
-        assertEquals("", user.getId());
+        setId(user, null);
+        assertId(user, false, "");
     }
 
     @Test
     public void userKeepsTheEmailSet_asIs() {
         String email = "  whatever   ";
-        user.setEmail(email);
-        assertEquals(email, user.getEmail());
+        setEmail(user, email);
+        assertEmail(user, email);
     }
 
     @Test
     public void whenSettingTheEmailToNull_itMustBeEmptied() {
-        user.setEmail("first");
-        user.setEmail(null);
-        assertEquals("", user.getEmail());
+        setEmail(user, "first");
+        setEmail(user, null);
+        assertEmail(user, "");
     }
 
     @Test
     public void userKeepsThePasswordSet_asIs() {
-        String password = "  whatever   ";
-        user.setPassword(password);
-        assertEquals(password, user.getPassword());
+        setPassword(user, "  whatever   ");
+        assertPassword(user, "  whatever   ");
     }
 
     @Test
     public void whenSettingThePasswordToNull_itMustBeEmptied() {
-        user.setPassword("first");
-        user.setPassword(null);
-        assertEquals("", user.getPassword());
+        setPassword(user, "first");
+        setPassword(user, null);
+        assertPassword(user, "");
     }
 
     @Test
     public void copyHasTheSameDataAsOriginal() {
-        user.setId("id");
-        user.setEmail("email@host.com");
-        user.setPassword("password");
+        setId(user, "id");
+        setEmail(user, "email@host.com");
+        setPassword(user, "password");
 
         User copy = user.copy();
-        assertEquals("id", copy.getId());
-        assertEquals("email@host.com", copy.getEmail());
-        assertEquals("password", copy.getPassword());
+
+        assertId(copy, true, "id");
+        assertEmail(copy, "email@host.com");
+        assertPassword(copy, "password");
+    }
+
+    private void setPassword(User user, String password) {
+        user.setPassword(password);
+    }
+
+    private void setEmail(User user, String email) {
+        user.setEmail(email);
+    }
+
+    private void setId(User user, String id) {
+        user.setId(id);
+    }
+
+    private void assertId(User user, boolean hasId, String id) {
+        assertEquals(hasId, user.hasId());
+        assertEquals(id, user.getId());
+    }
+
+    private void assertEmail(User user, String email) {
+        assertEquals(email, user.getEmail());
+    }
+
+    private void assertPassword(User user, String password) {
+        assertEquals(password, user.getPassword());
     }
 }
