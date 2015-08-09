@@ -6,9 +6,7 @@ public class User {
     private Password password;
 
     public User() {
-        id = "";
-        email = new Email("");
-        password = new Password("");
+        this("", new Email(""), new Password(""));
     }
 
     private User(String id, Email email, Password password) {
@@ -47,5 +45,9 @@ public class User {
 
     public User copy() {
         return new User(id, email, password);
+    }
+
+    boolean matchesPassword(Password password) {
+        return this.password.equals(password);
     }
 }

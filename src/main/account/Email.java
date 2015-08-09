@@ -1,7 +1,7 @@
 package main.account;
 
 public class Email {
-    private String value;
+    private final String value;
 
     public Email(String value) {
         this.value = value;

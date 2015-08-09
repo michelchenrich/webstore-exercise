@@ -26,14 +26,10 @@ public class LoginUseCase {
 
     private void checkPassword() {
         User user = repository.getByEmail(email);
-        if (isPasswordCorrect(user))
+        if (user.matchesPassword(password))
             sendSuccess(user.getId());
         else
             sendInvalidEmailOrPassword();
-    }
-
-    private boolean isPasswordCorrect(User user) {
-        return user.getPassword().matches(password);
     }
 
     private void sendInvalidEmailOrPassword() {

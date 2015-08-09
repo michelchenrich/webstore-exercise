@@ -1,7 +1,7 @@
 package main.account;
 
 public class Password {
-    private String value;
+    private final String value;
 
     public Password(String value) {
         this.value = value;
@@ -15,7 +15,11 @@ public class Password {
         return value;
     }
 
-    public boolean matches(Password other) {
+    public boolean equals(Object other) {
+        return other instanceof Password && equalsPassword((Password) other);
+    }
+
+    private boolean equalsPassword(Password other) {
         return value.equals(other.value);
     }
 }

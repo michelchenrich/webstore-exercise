@@ -23,7 +23,7 @@ public class RegisterUseCase {
     }
 
     private boolean isValidRequest() {
-        return email.isValid() && password.isValid() && password.matches(passwordConfirmation);
+        return email.isValid() && password.isValid() && password.equals(passwordConfirmation);
     }
 
     private void register() {
@@ -38,6 +38,6 @@ public class RegisterUseCase {
     private void sendErrors() {
         response.invalidEmail = !email.isValid();
         response.invalidPassword = !password.isValid();
-        response.invalidPasswordConfirmation = !password.matches(passwordConfirmation);
+        response.invalidPasswordConfirmation = !password.equals(passwordConfirmation);
     }
 }
