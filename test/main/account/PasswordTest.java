@@ -11,10 +11,23 @@ public class PasswordTest {
     }
 
     @Test
+    public void itPrintsItsExactValue() {
+        Password password = new Password("  ABC d e fGH ");
+        assertEquals("  ABC d e fGH ", password.toString());
+    }
+
+    @Test
     public void givenNullValue_equalsAnotherWithEmptyValue() {
         Password nullPassword = new Password(null);
         Password emptyPassword = new Password("");
         assertTrue(nullPassword.equals(emptyPassword));
+    }
+
+    @Test
+    public void anyDifferenceInValue_andItWillNotEqualTheOther() {
+        Password correctPassword = new Password("  ABC d e fGH ");
+        Password incorrectPassword = new Password(" ABC d e fGH ");
+        assertFalse(correctPassword.equals(incorrectPassword));
     }
 
     @Test
@@ -62,6 +75,12 @@ public class PasswordTest {
     @Test
     public void givenPasswordWithNoNumber_isNotValid() {
         Password password = new Password("ABCdefGH");
+        assertFalse(password.isValid());
+    }
+
+    @Test
+    public void givenValidPasswordSurroundedBySpaces_itIsStillValid() {
+        Password password = new Password("  ABC d e fGH ");
         assertFalse(password.isValid());
     }
 }
