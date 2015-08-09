@@ -47,7 +47,7 @@ public class UserTest {
     @Test
     public void whenSettingTheEmailToNull_itMustBeEmptied() {
         setEmail(user, "first");
-        setEmail(user, null);
+        user.setEmail(null);
         assertEmail(user, "");
     }
 
@@ -60,7 +60,7 @@ public class UserTest {
     @Test
     public void whenSettingThePasswordToNull_itMustBeEmptied() {
         setPassword(user, "first");
-        setPassword(user, null);
+        user.setPassword(null);
         assertPassword(user, "");
     }
 
@@ -78,11 +78,11 @@ public class UserTest {
     }
 
     private void setPassword(User user, String password) {
-        user.setPassword(password);
+        user.setPassword(new Password(password));
     }
 
     private void setEmail(User user, String email) {
-        user.setEmail(email);
+        user.setEmail(new Email(email));
     }
 
     private void setId(User user, String id) {
@@ -95,10 +95,10 @@ public class UserTest {
     }
 
     private void assertEmail(User user, String email) {
-        assertEquals(email, user.getEmail());
+        assertEquals(email, user.getEmail().toString());
     }
 
     private void assertPassword(User user, String password) {
-        assertEquals(password, user.getPassword());
+        assertEquals(password, user.getPassword().toString());
     }
 }

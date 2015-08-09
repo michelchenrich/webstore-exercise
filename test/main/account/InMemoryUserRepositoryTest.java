@@ -9,9 +9,33 @@ public class InMemoryUserRepositoryTest {
 
     private User makeUser(String email, String password) {
         User user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
+        user.setEmail(new Email(email));
+        user.setPassword(new Password(password));
         return user;
+    }
+
+    private void changeEmail(User user, String email) {
+        user.setEmail(new Email(email));
+    }
+
+    private void changePassword(User user, String password) {
+        user.setPassword(new Password(password));
+    }
+
+    private void assertEmail(User returnedUser, String email) {
+        assertEquals(email, returnedUser.getEmail().toString());
+    }
+
+    private void assertPassword(User returnedUser, String password) {
+        assertEquals(password, returnedUser.getPassword().toString());
+    }
+
+    private User getByEmail(String email) {
+        return repo.getByEmail(new Email(email));
+    }
+
+    private boolean hasWithEmail(String email) {
+        return repo.hasWithEmail(new Email(email));
     }
 
     @Before
@@ -21,24 +45,24 @@ public class InMemoryUserRepositoryTest {
 
     @Test
     public void withNoUsers_itMustNotHaveAny() {
-        assertFalse(repo.hasWithEmail("whatever"));
+        assertFalse(hasWithEmail("whatever"));
     }
 
     @Test
     public void givenAUser_itMustNotHaveWithAnotherEmail() {
         repo.save(makeUser("email@host.com", "password"));
-        assertFalse(repo.hasWithEmail("another.email@host.com"));
+        assertFalse(hasWithEmail("another.email@host.com"));
     }
 
     @Test
     public void givenAUser_itMustHaveWithTheEmail() {
         repo.save(makeUser("email@host.com", "password"));
-        assertTrue(repo.hasWithEmail("email@host.com"));
+        assertTrue(hasWithEmail("email@host.com"));
     }
 
     @Test(expected = EntityNotFoundException.class)
     public void whenGettingAUserWithIncorrectEmail_itMustThrowAnError() {
-        repo.getByEmail("whatever");
+        getByEmail("whatever");
     }
 
     @Test
@@ -61,11 +85,11 @@ public class InMemoryUserRepositoryTest {
     public void whenGettingAUserWithCorrectEmail_itMustReturnAnotherObjectWithTheSameData() {
         User user = makeUser("email@host.com", "password");
         repo.save(user);
-        User returnedUser = repo.getByEmail("email@host.com");
+        User returnedUser = getByEmail("email@host.com");
         assertNotSame(user, returnedUser);
         assertEquals(user.getId(), returnedUser.getId());
-        assertEquals("email@host.com", returnedUser.getEmail());
-        assertEquals("password", returnedUser.getPassword());
+        assertEmail(returnedUser, "email@host.com");
+        assertPassword(returnedUser, "password");
     }
 
     @Test
@@ -75,31 +99,31 @@ public class InMemoryUserRepositoryTest {
         User u2 = makeUser("email2@host.com", "password2");
         repo.save(u2);
 
-        User returnedU1 = repo.getByEmail("email1@host.com");
-        User returnedU2 = repo.getByEmail("email2@host.com");
+        User returnedU1 = getByEmail("email1@host.com");
+        User returnedU2 = getByEmail("email2@host.com");
 
-        assertEquals(returnedU1.getPassword(), "password1");
-        assertEquals(returnedU2.getPassword(), "password2");
+        assertPassword(returnedU1, "password1");
+        assertPassword(returnedU2, "password2");
     }
 
     @Test
     public void changingTheEmailThenSavingAgain_makesTheRepoNotFindIt() {
         User user = makeUser("old.email@host.com", "password");
         repo.save(user);
-        user.setEmail("new.email@host.com");
+        changeEmail(user, "new.email@host.com");
         repo.save(user);
-        assertFalse(repo.hasWithEmail("old.email@host.com"));
-        assertTrue(repo.hasWithEmail("new.email@host.com"));
+        assertFalse(hasWithEmail("old.email@host.com"));
+        assertTrue(hasWithEmail("new.email@host.com"));
     }
 
     @Test
     public void changesToTheUserAfterSaving_mustNotReflectInRepo() {
         User user = makeUser("email@host.com", "old password");
         repo.save(user);
-        user.setPassword("new password");
+        changePassword(user, "new password");
 
-        User returnedUser = repo.getByEmail("email@host.com");
-        assertEquals("old password", returnedUser.getPassword());
+        User returnedUser = getByEmail("email@host.com");
+        assertPassword(returnedUser, "old password");
     }
 
     @Test
@@ -107,9 +131,9 @@ public class InMemoryUserRepositoryTest {
         User user = makeUser("email@host.com", "old password");
         repo.save(user);
 
-        User returnedUser = repo.getByEmail("email@host.com");
-        returnedUser.setPassword("new password");
-        assertEquals("old password", repo.getByEmail("email@host.com").getPassword());
+        User returnedUser = getByEmail("email@host.com");
+        changePassword(returnedUser, "new password");
+        assertPassword(getByEmail("email@host.com"), "old password");
     }
 
     @Test(expected = EntityNotFoundException.class)
@@ -120,12 +144,13 @@ public class InMemoryUserRepositoryTest {
     @Test
     public void afterSavingAUser_repoCanGetItBackByItsId() {
         User user = new User();
-        user.setEmail("email@host.com");
+        String email = "email@host.com";
+        changeEmail(user, email);
 
         repo.save(user);
 
         User returnedUser = repo.getById(user.getId());
-        assertEquals(user.getEmail(), returnedUser.getEmail());
+        assertEmail(returnedUser, "email@host.com");
     }
 
     @Test

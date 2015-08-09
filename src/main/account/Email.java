@@ -14,4 +14,12 @@ public class Email {
     public String toString() {
         return value;
     }
+
+    public boolean equals(Object other) {
+        return other instanceof Email && equalsEmail((Email) other);
+    }
+
+    private boolean equalsEmail(Email other) {
+        return value.equals(other.value);
+    }
 }

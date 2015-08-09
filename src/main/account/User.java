@@ -2,16 +2,16 @@ package main.account;
 
 public class User {
     private String id;
-    private String email;
-    private String password;
+    private Email email;
+    private Password password;
 
     public User() {
         id = "";
-        email = "";
-        password = "";
+        email = new Email("");
+        password = new Password("");
     }
 
-    private User(String id, String email, String password) {
+    private User(String id, Email email, Password password) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -25,11 +25,11 @@ public class User {
         return id;
     }
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
-    public String getPassword() {
+    public Password getPassword() {
         return password;
     }
 
@@ -37,12 +37,12 @@ public class User {
         this.id = id == null ? "" : id.trim();
     }
 
-    public void setEmail(String email) {
-        this.email = email == null ? "" : email;
+    public void setEmail(Email email) {
+        this.email = email == null ? new Email("") : email;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? "" : password;
+    public void setPassword(Password password) {
+        this.password = password == null ? new Password("") : password;
     }
 
     public User copy() {

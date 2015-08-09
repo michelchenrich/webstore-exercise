@@ -7,11 +7,11 @@ public class InMemoryUserRepository implements UserRepository {
     private int incrementalId;
     private Map<String, User> users = new HashMap<>();
 
-    public boolean hasWithEmail(String email) {
+    public boolean hasWithEmail(Email email) {
         return findByEmail(email) != null;
     }
 
-    public User getByEmail(String email) {
+    public User getByEmail(Email email) {
         User match = findByEmail(email);
         if (match == null)
             throw new EntityNotFoundException();
@@ -34,7 +34,7 @@ public class InMemoryUserRepository implements UserRepository {
         return users.containsKey(id);
     }
 
-    private User findByEmail(String email) {
+    private User findByEmail(Email email) {
         for (User user : users.values())
             if (user.getEmail().equals(email))
                 return user;

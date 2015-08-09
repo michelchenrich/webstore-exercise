@@ -2,12 +2,14 @@ package main.account;
 
 public class LoginUseCase {
     private final UserRepository repository;
-    private final LoginRequest request;
     private final LoginResponse response;
+    private final Email email;
+    private final Password password;
 
     public LoginUseCase(UserRepository repository, LoginRequest request, LoginResponse response) {
         this.repository = repository;
-        this.request = request;
+        password = new Password(request.password);
+        email = new Email(request.email);
         this.response = response;
     }
 
@@ -19,11 +21,11 @@ public class LoginUseCase {
     }
 
     private boolean emailIsRegistered() {
-        return repository.hasWithEmail(request.email);
+        return repository.hasWithEmail(email);
     }
 
     private void checkPassword() {
-        User user = repository.getByEmail(request.email);
+        User user = repository.getByEmail(email);
         if (isPasswordCorrect(user))
             sendSuccess(user.getId());
         else
@@ -31,7 +33,7 @@ public class LoginUseCase {
     }
 
     private boolean isPasswordCorrect(User user) {
-        return user.getPassword().equals(request.password);
+        return user.getPassword().matches(password);
     }
 
     private void sendInvalidEmailOrPassword() {

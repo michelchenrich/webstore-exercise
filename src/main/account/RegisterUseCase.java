@@ -28,8 +28,8 @@ public class RegisterUseCase {
 
     private void register() {
         User user = new User();
-        user.setEmail(email.toString());
-        user.setPassword(password.toString());
+        user.setEmail(email);
+        user.setPassword(password);
         repository.save(user);
         response.success = true;
         response.id = user.getId();

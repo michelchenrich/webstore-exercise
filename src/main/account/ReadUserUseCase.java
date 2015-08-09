@@ -23,6 +23,6 @@ public class ReadUserUseCase {
     private void sendUser() {
         User user = repository.getById(request.id);
         response.success = true;
-        response.email = user.getEmail();
+        response.email = user.getEmail().toString();
     }
 }
