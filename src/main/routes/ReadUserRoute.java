@@ -1,8 +1,8 @@
 package main.routes;
 
-import main.account.ReadUserRequest;
-import main.account.ReadUserResponse;
-import main.account.ReadUserUseCase;
+import main.domain.account.reading.ReadUserRequest;
+import main.domain.account.reading.ReadUserResponse;
+import main.domain.account.reading.ReadUserUseCase;
 import spark.Request;
 import spark.Response;
 

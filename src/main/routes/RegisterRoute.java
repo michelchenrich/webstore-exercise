@@ -1,8 +1,8 @@
 package main.routes;
 
-import main.account.RegisterRequest;
-import main.account.RegisterResponse;
-import main.account.RegisterUseCase;
+import main.domain.account.registration.RegisterRequest;
+import main.domain.account.registration.RegisterResponse;
+import main.domain.account.registration.RegisterUseCase;
 import spark.Request;
 import spark.Response;
 

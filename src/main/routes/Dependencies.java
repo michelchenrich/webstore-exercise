@@ -1,6 +1,6 @@
 package main.routes;
 
-import main.account.UserRepository;
+import main.persistence.account.UserRepository;
 
 public class Dependencies {
     public UserRepository userRepository;

@@ -1,8 +1,8 @@
 package main.routes;
 
-import main.account.LoginRequest;
-import main.account.LoginResponse;
-import main.account.LoginUseCase;
+import main.domain.account.login.LoginRequest;
+import main.domain.account.login.LoginResponse;
+import main.domain.account.login.LoginUseCase;
 import spark.Request;
 import spark.Response;
 

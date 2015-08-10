@@ -1,6 +1,6 @@
 package main;
 
-import main.account.InMemoryUserRepository;
+import main.persistence.account.InMemoryUserRepository;
 import main.routes.*;
 import static spark.Spark.*;
 import static spark.SparkBase.port;
