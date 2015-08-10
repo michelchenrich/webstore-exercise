@@ -1,4 +1,4 @@
-package main.persistence;
+package main.domain;
 
 public abstract class Entity {
     protected String id;

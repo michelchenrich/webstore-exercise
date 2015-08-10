@@ -1,5 +1,7 @@
 package main.persistence;
 
+import main.domain.Entity;
+
 class FakeEntity extends Entity {
     private String value;
 

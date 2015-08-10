@@ -1,7 +1,7 @@
 package main.domain.account;
 
-import main.persistence.Entity;
-import main.persistence.EntityTest;
+import main.domain.Entity;
+import main.domain.EntityTest;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;

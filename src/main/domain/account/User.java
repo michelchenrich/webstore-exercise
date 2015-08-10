@@ -1,6 +1,6 @@
 package main.domain.account;
 
-import main.persistence.Entity;
+import main.domain.Entity;
 
 public class User extends Entity {
     private Email email;

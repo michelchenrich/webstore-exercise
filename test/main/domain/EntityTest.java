@@ -1,4 +1,4 @@
-package main.persistence;
+package main.domain;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;

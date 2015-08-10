@@ -1,5 +1,7 @@
 package main.persistence;
 
+import main.domain.Entity;
+
 import java.util.HashMap;
 import java.util.Map;
 
