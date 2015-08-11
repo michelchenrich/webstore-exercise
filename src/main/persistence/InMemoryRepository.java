@@ -9,20 +9,20 @@ public class InMemoryRepository<TEntity extends Entity> implements Repository<TE
     private int incrementalId;
     private Map<String, TEntity> entities = new HashMap<>();
 
+    public boolean hasWithId(String id) {
+        return entities.containsKey(id);
+    }
+
     public void save(TEntity entity) {
         ensureId(entity);
-        entities.put(entity.getId(), entity.copy());
+        entities.put(entity.getId(), makeCopy(entity));
     }
 
     public TEntity getById(String id) {
         if (hasWithId(id))
-            return entities.get(id).copy();
+            return makeCopy(entities.get(id));
         else
             throw new EntityNotFoundException();
-    }
-
-    public boolean hasWithId(String id) {
-        return entities.containsKey(id);
     }
 
     public Iterable<TEntity> getEntities() {
@@ -36,5 +36,10 @@ public class InMemoryRepository<TEntity extends Entity> implements Repository<TE
 
     private String makeNextId() {
         return String.valueOf(++incrementalId);
+    }
+
+    @SuppressWarnings("unchecked")
+    private TEntity makeCopy(TEntity entity) {
+        return (TEntity) entity.copy();
     }
 }

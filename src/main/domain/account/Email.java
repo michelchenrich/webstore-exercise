@@ -1,6 +1,7 @@
 package main.domain.account;
 
 public class Email {
+    public static final Email EMPTY = new Email("");
     private final String value;
 
     public Email(String value) {

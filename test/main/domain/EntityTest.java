@@ -1,44 +1,59 @@
 package main.domain;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import org.junit.Before;
 import org.junit.Test;
 
-public abstract class EntityTest {
-    protected abstract Entity getEntity();
+public abstract class EntityTest<TEntity extends Entity> {
+    protected TEntity subject;
 
-    protected void setId(Entity entity, String id) {
-        entity.setId(id);
-    }
+    protected abstract TEntity makeNewSubject();
+    protected abstract TEntity makeSubjectWithData();
+    protected abstract void assertSameData(TEntity entity, TEntity copy);
 
-    protected void assertId(Entity entity, boolean hasId, String id) {
-        assertEquals(hasId, entity.hasId());
-        assertEquals(id, entity.getId());
+    @Before
+    public void setUp() {
+        subject = makeNewSubject();
     }
 
     @Test
     public void newEntityHasEmptyId() {
-        Entity entity = getEntity();
-        assertId(entity, false, "");
+        TEntity entity = makeNewSubject();
+        assertEquals(false, entity.hasId());
+        assertEquals("", entity.getId());
     }
 
     @Test
     public void afterSettingAnId_itMustHaveTheId() {
-        Entity entity = getEntity();
-        setId(entity, "id");
-        assertId(entity, true, "id");
+        TEntity entity = makeNewSubject();
+        entity.setId("id");
+        assertEquals(true, entity.hasId());
+        assertEquals("id", entity.getId());
     }
 
     @Test
     public void settingAnIdWithOnlySpacesIsNotValid() {
-        Entity entity = getEntity();
-        setId(entity, "   ");
-        assertId(entity, false, "");
+        TEntity entity = makeNewSubject();
+        entity.setId("   ");
+        assertEquals(false, entity.hasId());
+        assertEquals("", entity.getId());
     }
 
     @Test
     public void settingANullIdIsNotValid() {
-        Entity entity = getEntity();
-        setId(entity, null);
-        assertId(entity, false, "");
+        TEntity entity = makeNewSubject();
+        entity.setId(null);
+        assertEquals(false, entity.hasId());
+        assertEquals("", entity.getId());
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void copyMustContainSameDataAsOriginal_butNotBeTheSame() {
+        TEntity entity = makeSubjectWithData();
+        TEntity copy = (TEntity) entity.copy();
+        assertSameData(entity, copy);
+        assertNotSame(entity, copy);
     }
 }

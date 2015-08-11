@@ -1,6 +1,7 @@
 package main.domain.account;
 
 public class Password {
+    public static final Password EMPTY = new Password("");
     private final String value;
 
     public Password(String value) {

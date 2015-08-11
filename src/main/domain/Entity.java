@@ -19,5 +19,5 @@ public abstract class Entity {
         this.id = id == null ? "" : id.trim();
     }
 
-    public abstract <TEntity extends Entity> TEntity copy();
+    public abstract Entity copy();
 }

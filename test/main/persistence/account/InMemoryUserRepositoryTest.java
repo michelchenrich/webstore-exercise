@@ -9,33 +9,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class InMemoryUserRepositoryTest {
+    private static final Email EMAIL1 = new Email("email1@host.com");
+    private static final Email EMAIL2 = new Email("email2@host.com");
+    private static final Password PASSWORD1 = new Password("password1");
+    private static final Password PASSWORD2 = new Password("password2");
     private UserRepository repo;
 
-    private User makeUser(String email, String password) {
+    private User makeUser(Email email, Password password) {
         User user = new User();
-        user.setEmail(new Email(email));
-        user.setPassword(new Password(password));
+        user.setEmail(email);
+        user.setPassword(password);
         return user;
-    }
-
-    private void changeEmail(User user, String email) {
-        user.setEmail(new Email(email));
-    }
-
-    private void assertEmail(User returnedUser, String email) {
-        assertEquals(email, returnedUser.getEmail().toString());
-    }
-
-    private void assertPassword(User returnedUser, String password) {
-        assertEquals(password, returnedUser.getPassword().toString());
-    }
-
-    private User getByEmail(String email) {
-        return repo.getByEmail(new Email(email));
-    }
-
-    private boolean hasWithEmail(String email) {
-        return repo.hasWithEmail(new Email(email));
     }
 
     @Before
@@ -45,56 +29,56 @@ public class InMemoryUserRepositoryTest {
 
     @Test
     public void withNoUsers_itMustNotHaveAny() {
-        assertFalse(hasWithEmail("whatever"));
+        assertFalse(repo.hasWithEmail(EMAIL1));
     }
 
     @Test
     public void givenAUser_itMustNotHaveWithAnotherEmail() {
-        repo.save(makeUser("email@host.com", "password"));
-        assertFalse(hasWithEmail("another.email@host.com"));
+        repo.save(makeUser(EMAIL1, PASSWORD1));
+        assertFalse(repo.hasWithEmail(EMAIL2));
     }
 
     @Test
     public void givenAUser_itMustHaveWithTheEmail() {
-        repo.save(makeUser("email@host.com", "password"));
-        assertTrue(hasWithEmail("email@host.com"));
+        repo.save(makeUser(EMAIL1, PASSWORD1));
+        assertTrue(repo.hasWithEmail(EMAIL1));
     }
 
     @Test(expected = EntityNotFoundException.class)
     public void whenGettingAUserWithIncorrectEmail_itMustThrowAnError() {
-        getByEmail("whatever");
+        repo.getByEmail(EMAIL1);
     }
 
     @Test
     public void whenGettingAUserWithCorrectEmail_itMustReturnAnotherObjectWithTheSameData() {
-        User user = makeUser("email@host.com", "password");
+        User user = makeUser(EMAIL1, PASSWORD1);
         repo.save(user);
-        User returnedUser = getByEmail("email@host.com");
-        assertEmail(returnedUser, "email@host.com");
-        assertPassword(returnedUser, "password");
+        User returnedUser = repo.getByEmail(EMAIL1);
+        assertEquals(EMAIL1, returnedUser.getEmail());
+        assertEquals(PASSWORD1, returnedUser.getPassword());
     }
 
     @Test
-    public void canSaveMoreThanOneUser_andRetrieveThemAll() {
-        User u1 = makeUser("email1@host.com", "password1");
+    public void canSaveMoreThanOneUser_andRetrieveThem() {
+        User u1 = makeUser(EMAIL1, PASSWORD1);
         repo.save(u1);
-        User u2 = makeUser("email2@host.com", "password2");
+        User u2 = makeUser(EMAIL2, PASSWORD2);
         repo.save(u2);
 
-        User returnedU1 = getByEmail("email1@host.com");
-        User returnedU2 = getByEmail("email2@host.com");
+        User returnedU1 = repo.getByEmail(EMAIL1);
+        User returnedU2 = repo.getByEmail(EMAIL2);
 
-        assertPassword(returnedU1, "password1");
-        assertPassword(returnedU2, "password2");
+        assertEquals(PASSWORD1, returnedU1.getPassword());
+        assertEquals(PASSWORD2, returnedU2.getPassword());
     }
 
     @Test
     public void changingTheEmailThenSavingAgain_makesTheRepoNotFindIt() {
-        User user = makeUser("old.email@host.com", "password");
+        User user = makeUser(EMAIL1, PASSWORD1);
         repo.save(user);
-        changeEmail(user, "new.email@host.com");
+        user.setEmail(EMAIL2);
         repo.save(user);
-        assertFalse(hasWithEmail("old.email@host.com"));
-        assertTrue(hasWithEmail("new.email@host.com"));
+        assertFalse(repo.hasWithEmail(EMAIL1));
+        assertTrue(repo.hasWithEmail(EMAIL2));
     }
 }

@@ -7,7 +7,7 @@ public class User extends Entity {
     private Password password;
 
     public User() {
-        this("", new Email(""), new Password(""));
+        this("", Email.EMPTY, Password.EMPTY);
     }
 
     private User(String id, Email email, Password password) {
@@ -29,11 +29,11 @@ public class User extends Entity {
     }
 
     public void setEmail(Email email) {
-        this.email = email == null ? new Email("") : email;
+        this.email = email;
     }
 
     public void setPassword(Password password) {
-        this.password = password == null ? new Password("") : password;
+        this.password = password;
     }
 
     public boolean matchesPassword(Password password) {
