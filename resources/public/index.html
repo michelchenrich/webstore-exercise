@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>WebStore Exercise</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.min.js"></script>
+    <script>
+        var page = angular.module('page', ['ngResource']);
+        page.controller('controller', function ($scope, $resource, $window) {
+            $scope.logout = function () {
+                $resource('/logout').save(function () {
+                    $window.location = "/";
+                });
+            };
+            $resource('/read-user', {}).get(function (response) {
+                $scope.loggedIn = response.success;
+            });
+        });
+    </script>
+</head>
+<body ng-app="page">
+<div class="container">
+    <h1>WebStore Exercise</h1>
+    <ul ng-controller="controller">
+        <li ng-if="!loggedIn"><a href="/login.html">Login</a></li>
+        <li ng-if="!loggedIn"><a href="/register.html">Register</a></li>
+        <li ng-if="loggedIn"><a href="/" ng-click="logout()">Logout</a></li>
+    </ul>
+</div>
+</body>
+</html>

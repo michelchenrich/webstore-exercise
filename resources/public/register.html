@@ -1,0 +1,62 @@
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.min.js"></script>
+    <script>
+        var page = angular.module('page', ['ngResource']);
+        page.controller('controller', function ($scope, $resource, $window) {
+            $scope.form = {email: "", password: "", passwordConfirmation: ""};
+            $scope.messages = {form: "", email: "", password: "", passwordConfirmation: ""};
+            $scope.status = {email: "", password: "", passwordConfirmation: ""};
+            $scope.submit = function () {
+                $scope.messages.form = "Registering...";
+                $resource('/register').save($scope.form, function (response) {
+                    $scope.messages.form = "";
+                    if (response.success)
+                        $window.location = "/";
+                    else {
+                        $scope.status.email = response.invalidEmail ? "has-error" : "";
+                        $scope.messages.email = response.invalidEmail ?
+                                "\nInvalid e-mail, please use the following format: email@host.com" : "";
+                        $scope.status.password = response.invalidPassword ? "has-error" : "";
+                        $scope.messages.password = response.invalidPassword ?
+                                "\nInvalid password, it must contain at least 8 characters, with at least one upper case letter, a lower case letter, and a number" : "";
+                        $scope.status.passwordConfirmation = response.invalidPasswordConfirmation ? "has-error" : "";
+                        $scope.messages.passwordConfirmation = response.invalidPasswordConfirmation ?
+                                "\nInvalid password confimration, it must match the password" : "";
+                    }
+                });
+            };
+        });
+    </script>
+</head>
+<body ng-app="page" ng-controller="controller">
+<div class="container">
+    <form ng-submit="submit()">
+        <div class="form-group {{status.email}}">
+            <label for="email">E-Mail</label>
+            <input class="form-control" type="text" id="email" ng-model="form.email" placeholder="example@host.com">
+            <span class="help-block">{{messages.email}}</span>
+        </div>
+
+        <div class="form-group {{status.password}}">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" id="password" ng-model="form.password">
+            <span class="help-block">{{messages.password}}</span>
+        </div>
+
+        <div class="form-group {{status.passwordConfirmation}}">
+            <label for="passwordConfirmation">Password confirmation</label>
+            <input class="form-control" type="password" id="passwordConfirmation" ng-model="form.passwordConfirmation">
+            <span class="help-block">{{messages.passwordConfirmation}}</span>
+        </div>
+
+        <button class="btn btn-default" type="submit">Register</button>
+    </form>
+    <div>{{messages.form}}</div>
+</div>
+</body>
+</html>

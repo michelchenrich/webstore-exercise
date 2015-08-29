@@ -10,7 +10,7 @@ public class Main {
         Dependencies dependencies = new Dependencies();
         dependencies.userRepository = new InMemoryUserRepository();
         port(8081);
-        staticFileLocation("/public");
+        externalStaticFileLocation("resources/public");
         get("/read-user", new ReadUserRoute(dependencies));
         post("/login", new LoginRoute(dependencies));
         post("/logout", new LogoutRoute(dependencies));

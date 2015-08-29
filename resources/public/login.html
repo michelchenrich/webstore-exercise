@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>Log in</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.min.js"></script>
+    <script>
+        var page = angular.module('page', ['ngResource']);
+        page.controller('controller', function ($scope, $resource, $window) {
+            $scope.form = {email: "", password: ""};
+            $scope.status = "";
+            $scope.submit = function () {
+                $scope.message = "Logging in...";
+                $resource('/login').save($scope.form, function (response) {
+                    if (response.success)
+                        $window.location = "/";
+                    else if (response.invalidEmailOrPassword) {
+                        $scope.message = "Invalid e-mail or password";
+                        $scope.status = "has-error";
+                    }
+                });
+            };
+        });
+    </script>
+</head>
+<body ng-app="page" ng-controller="controller">
+<div class="container">
+    <form ng-submit="submit()">
+        <div class="form-group {{status}}">
+            <label for="email">E-Mail</label>
+            <input class="form-control" type="text" id="email" ng-model="form.email" placeholder="example@host.com">
+        </div>
+
+        <div class="form-group {{status}}">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" id="password" ng-model="form.password">
+        </div>
+
+        <button class="btn btn-default" type="submit">Log in</button>
+    </form>
+    <div>{{message}}</div>
+</div>
+</body>
+</html>
