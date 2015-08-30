@@ -20,7 +20,7 @@ angular.module('webStore').controller('createProductController', function ($scop
                     'Invalid price, it must be greater than zero' : '';
                 $scope.status.unitsInStock = response.data.invalidUnitsInStock ? 'has-error' : '';
                 $scope.messages.unitsInStock = response.data.invalidUnitsInStock ?
-                    'Invalid number of units, it must be greater than zero' : '';
+                    'Invalid number of units, it must be positive' : '';
             }
         });
     };
