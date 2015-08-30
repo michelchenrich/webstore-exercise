@@ -7,79 +7,20 @@
             src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.min.js"></script>
     <script type="text/javascript"
             src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.min.js"></script>
-    <script>
-        var webStore = angular.module('webStore', ['ngResource', 'ngRoute']);
-        webStore.config(function ($routeProvider) {
-            $routeProvider
-                    .when('/', {})
-                    .when('/login.html', {templateUrl: '/partials/login.html', controller: 'loginController'})
-                    .when('/register.html', {templateUrl: '/partials/register.html', controller: 'registerController'})
-                    .otherwise({redirectTo: '/'});
-        });
-        webStore.factory('loadSession', function ($rootScope, $resource, $location) {
-            return function () {
-                $location.path('/');
-                $resource('/read-user', {}).get(function (response) {
-                    $rootScope.hasSession = response.success;
-                    $rootScope.noSession = !$rootScope.hasSession;
-                });
-            };
-        });
-        webStore.controller('sessionController', function ($scope, $resource, loadSession) {
-            $scope.logout = function () {
-                $resource('/logout').save(loadSession);
-            };
-            loadSession();
-        });
-        webStore.controller('loginController', function ($scope, $resource, loadSession) {
-            $scope.form = {email: '', password: ''};
-            $scope.status = '';
-            $scope.submit = function () {
-                $scope.message = 'Logging in...';
-                $resource('/login').save($scope.form, function (response) {
-                    if (response.success)
-                        loadSession();
-                    else if (response.invalidEmailOrPassword) {
-                        $scope.message = 'Invalid e-mail or password';
-                        $scope.status = 'has-error';
-                    }
-                });
-            };
-        });
-        webStore.controller('registerController', function ($scope, $resource, loadSession) {
-            $scope.form = {email: '', password: '', passwordConfirmation: ''};
-            $scope.messages = {form: '', email: '', password: '', passwordConfirmation: ''};
-            $scope.status = {email: '', password: '', passwordConfirmation: ''};
-            $scope.submit = function () {
-                $scope.messages.form = 'Registering...';
-                $resource('/register').save($scope.form, function (response) {
-                    $scope.messages.form = '';
-                    if (response.success)
-                        loadSession();
-                    else {
-                        $scope.status.email = response.invalidEmail ? 'has-error' : '';
-                        $scope.messages.email = response.invalidEmail ?
-                                'Invalid e-mail, please use the following format: email@host.com' : '';
-                        $scope.status.password = response.invalidPassword ? '' : '';
-                        $scope.messages.password = response.invalidPassword ?
-                                'Invalid password, it must contain at least 8 characters, with at least one upper case letter, a lower case letter, and a number' : '';
-                        $scope.status.passwordConfirmation = response.invalidPasswordConfirmation ? '' : '';
-                        $scope.messages.passwordConfirmation = response.invalidPasswordConfirmation ?
-                                'Invalid password confimration, it must match the password' : '';
-                    }
-                });
-            };
-        });
-    </script>
+    <script type="text/javascript" src="js/webStore.js"></script>
+    <script type="text/javascript" src="js/account/loadSession.js"></script>
+    <script type="text/javascript" src="js/account/loginController.js"></script>
+    <script type="text/javascript" src="js/account/registerController.js"></script>
+    <script type="text/javascript" src="js/account/sessionController.js"></script>
 </head>
 <body ng-app="webStore">
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand" href="/">WebStore Exercise</a></div>
+        <div class="navbar-header"><a class="navbar-brand" href="#">WebStore Exercise</a></div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav" ng-controller="sessionController">
-                <li ng-if="noSession"><a href="#login.html">Login</a></li>
-                <li ng-if="noSession"><a href="#register.html">Register</a></li>
+                <li ng-if="noSession"><a href="#login">Login</a></li>
+                <li ng-if="noSession"><a href="#register">Register</a></li>
                 <li ng-if="hasSession"><a href="#" ng-click="logout()">Logout</a></li>
             </ul>
         </div>
