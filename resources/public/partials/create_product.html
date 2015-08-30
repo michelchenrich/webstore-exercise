@@ -1,0 +1,28 @@
+<form ng-submit="submit()">
+    <div class="form-group {{status.name}}">
+        <label for="name">Name</label>
+        <input class="form-control" type="text" id="name" ng-model="form.name">
+        <span class="help-block">{{messages.name}}</span>
+    </div>
+
+    <div class="form-group {{status.description}}">
+        <label for="description">Description</label>
+        <input class="form-control" type="text" id="description" ng-model="form.description">
+        <span class="help-block">{{messages.description}}</span>
+    </div>
+
+    <div class="form-group {{status.price}}">
+        <label for="price">Price</label>
+        <input class="form-control" type="number" id="price" ng-model="form.price">
+        <span class="help-block">{{messages.price}}</span>
+    </div>
+
+    <div class="form-group {{status.unitsInStock}}">
+        <label for="unitsInStock">Initial amount of units in stock</label>
+        <input class="form-control" type="number" id="unitsInStock" ng-model="form.unitsInStock">
+        <span class="help-block">{{messages.unitsInStock}}</span>
+    </div>
+
+    <button class="btn btn-default" type="submit">Create</button>
+</form>
+<div>{{messages.form}}</div>

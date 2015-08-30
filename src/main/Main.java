@@ -18,5 +18,6 @@ public class Main {
         post("/logout", new LogoutRoute(dependencies));
         post("/register", new RegisterRoute(dependencies));
         get("/products", new ProductsSummaryRoute(dependencies));
+        post("/product/create", new CreateProductRoute(dependencies));
     }
 }
