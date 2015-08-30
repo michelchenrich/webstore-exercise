@@ -18,7 +18,7 @@ public class InMemoryUserRepository extends InMemoryRepository<User> implements 
     }
 
     private User findByEmail(Email email) {
-        for (User user : getEntities())
+        for (User user : getAll())
             if (user.getEmail().equals(email))
                 return user;
         return null;

@@ -1,0 +1,18 @@
+<table class="table table-striped" ng-if="hasProducts">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Units in stock</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="product in products">
+        <td>{{product.name}}</td>
+        <td>{{product.description}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.unitsInStock}}</td>
+    </tr>
+    </tbody>
+</table>

@@ -25,7 +25,7 @@ public class InMemoryRepository<TEntity extends Entity> implements Repository<TE
             throw new EntityNotFoundException();
     }
 
-    public Iterable<TEntity> getEntities() {
+    public Iterable<TEntity> getAll() {
         return entities.values();
     }
 

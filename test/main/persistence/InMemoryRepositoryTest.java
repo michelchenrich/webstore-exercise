@@ -80,7 +80,7 @@ public class InMemoryRepositoryTest {
         FakeEntity entity = makeNewEntity();
         repository.save(entity);
         int count = 0;
-        for (FakeEntity savedEntity : repository.getEntities()) {
+        for (FakeEntity savedEntity : repository.getAll()) {
             count++;
             assertNotSame(entity, savedEntity);
             assertEquals(entity, savedEntity);
