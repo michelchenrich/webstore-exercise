@@ -15,20 +15,31 @@ public class CreateProductUseCase {
     }
 
     public void execute() {
-        response.invalidName = request.name == null || request.name.trim().isEmpty();
-        response.invalidDescription = request.description == null || request.description.trim().isEmpty();
-        response.invalidPrice = request.price <= 0;
-        response.invalidUnitsInStock = request.unitsInStock < 0;
+        Product product = buildProduct();
+        if (product.isValid())
+            save(product);
+        else
+            sendErrors(product);
+    }
 
-        if (response.invalidName || response.invalidPrice || response.invalidDescription || response.invalidUnitsInStock)
-            return;
-
+    private Product buildProduct() {
         Product product = new Product();
-        product.setName(request.name.trim());
-        product.setDescription(request.description.trim());
+        product.setName(request.name);
+        product.setDescription(request.description);
         product.setPrice(request.price);
         product.setUnitsInStock(request.unitsInStock);
+        return product;
+    }
+
+    private void save(Product product) {
         repository.save(product);
         response.success = true;
+    }
+
+    private void sendErrors(Product product) {
+        response.invalidName = !product.hasValidName();
+        response.invalidDescription = !product.hasValidDescription();
+        response.invalidPrice = !product.hasValidPrice();
+        response.invalidUnitsInStock = !product.hasValidUnitsInStock();
     }
 }

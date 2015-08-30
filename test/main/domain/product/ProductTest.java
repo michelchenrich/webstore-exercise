@@ -2,6 +2,7 @@ package main.domain.product;
 
 import main.domain.EntityTest;
 import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 public class ProductTest extends EntityTest<Product> {
     protected Product makeNewSubject() {
@@ -23,5 +24,29 @@ public class ProductTest extends EntityTest<Product> {
         assertEquals(entity.getDescription(), copy.getDescription());
         assertEquals(entity.getPrice(), copy.getPrice(), .001);
         assertEquals(entity.getUnitsInStock(), copy.getUnitsInStock());
+    }
+
+    @Test
+    public void givenNullName_itShouldBeSetToEmpty() {
+        subject.setName(null);
+        assertEquals("", subject.getName());
+    }
+
+    @Test
+    public void givenNameSurroundedBySpaces_itShouldBeSetToTheTrimmedText() {
+        subject.setName(" name  ");
+        assertEquals("name", subject.getName());
+    }
+
+    @Test
+    public void givenNullDescription_itShouldBeSetToEmpty() {
+        subject.setDescription(null);
+        assertEquals("", subject.getDescription());
+    }
+
+    @Test
+    public void givenDescriptionSurroundedBySpaces_itShouldBeSetToTheTrimmedText() {
+        subject.setName(" description  ");
+        assertEquals("description", subject.getName());
     }
 }
