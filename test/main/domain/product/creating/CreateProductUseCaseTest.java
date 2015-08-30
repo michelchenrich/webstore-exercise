@@ -14,7 +14,7 @@ public class CreateProductUseCaseTest {
     private static final String VALID_NAME = "Valid name";
     private static final String VALID_DESCRIPTION = "Valid description";
     private static final double VALID_PRICE = 10.0;
-    private static final int VALID_UNITS_IN_STOCK = 10;
+    private static final int VALID_UNITS_IN_STOCK = 0;
     private CreateProductRequest request;
     private CreateProductResponse response;
     private ProductRepository repository;
@@ -140,14 +140,6 @@ public class CreateProductUseCaseTest {
     }
 
     @Test
-    public void givenZeroUnitsInStock_itIsInvalid() {
-        givenProductInformation(VALID_NAME, VALID_DESCRIPTION, VALID_PRICE, 0);
-        whenCreatingTheProduct();
-        thenItShouldNotBeCreated();
-        andItShouldReturnTheErrors("invalidUnitsInStock");
-    }
-
-    @Test
     public void givenNegativeUnitsInStock_itIsInvalid() {
         givenProductInformation(VALID_NAME, VALID_DESCRIPTION, VALID_PRICE, -1);
         whenCreatingTheProduct();
@@ -156,8 +148,8 @@ public class CreateProductUseCaseTest {
     }
 
     @Test
-    public void givenBlankInput_allFieldsAreInvalid() {
-        givenProductInformation("", "", 0.0, 0);
+    public void givenCompletelyInvalidData_itAllMustBeInvalid() {
+        givenProductInformation(null, "   ", 0.0, -1);
         whenCreatingTheProduct();
         thenItShouldNotBeCreated();
         andItShouldReturnTheErrors("invalidName", "invalidDescription", "invalidPrice", "invalidUnitsInStock");

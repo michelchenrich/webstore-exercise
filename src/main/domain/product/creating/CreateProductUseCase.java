@@ -18,7 +18,7 @@ public class CreateProductUseCase {
         response.invalidName = request.name == null || request.name.trim().isEmpty();
         response.invalidDescription = request.description == null || request.description.trim().isEmpty();
         response.invalidPrice = request.price <= 0;
-        response.invalidUnitsInStock = request.unitsInStock <= 0;
+        response.invalidUnitsInStock = request.unitsInStock < 0;
 
         if (response.invalidName || response.invalidPrice || response.invalidDescription || response.invalidUnitsInStock)
             return;
