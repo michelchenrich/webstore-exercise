@@ -24,8 +24,8 @@ public class CreateProductUseCase {
             return;
 
         Product product = new Product();
-        product.setName(request.name);
-        product.setDescription(request.description);
+        product.setName(request.name.trim());
+        product.setDescription(request.description.trim());
         product.setPrice(request.price);
         product.setUnitsInStock(request.unitsInStock);
         repository.save(product);

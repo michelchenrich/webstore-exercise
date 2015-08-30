@@ -162,4 +162,12 @@ public class CreateProductUseCaseTest {
         thenItShouldBeCreatedWithTheData(VALID_NAME, VALID_DESCRIPTION, VALID_PRICE, VALID_UNITS_IN_STOCK);
         andItShouldNotReturnErrors();
     }
+
+    @Test
+    public void givenNameAndDescriptionSurroundedBySpaces_theProductIsCreatedWithTheTextsTrimmed() {
+        givenProductInformation("  Valid name  ", "  Valid description  ", VALID_PRICE, VALID_UNITS_IN_STOCK);
+        whenCreatingTheProduct();
+        thenItShouldBeCreatedWithTheData(VALID_NAME, VALID_DESCRIPTION, VALID_PRICE, VALID_UNITS_IN_STOCK);
+        andItShouldNotReturnErrors();
+    }
 }
