@@ -4,7 +4,7 @@ angular.module('webStore').controller('createProductController', function ($scop
     $scope.status = {name: '', description: '', price: '', unitsInStock: ''};
     $scope.submit = function () {
         $scope.messages.form = 'Creating product...';
-        $http.post('/product/create', $scope.form).then(function (response) {
+        $http.post('/products', $scope.form).then(function (response) {
             $scope.messages.form = '';
             if (response.data.success)
                 $location.path('/');

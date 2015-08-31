@@ -21,6 +21,7 @@ public class ReadProductsSummaryUseCase {
 
     private ProductSummary makeProductSummary(Product product) {
         ProductSummary summary = new ProductSummary();
+        summary.id = product.getId();
         summary.name = product.getName().toString();
         summary.description = product.getDescription().toString();
         summary.price = product.getPrice().toDouble();

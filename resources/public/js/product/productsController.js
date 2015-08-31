@@ -3,6 +3,11 @@ angular.module('webStore').controller('productsController', function ($scope, $h
         if (response.data.length == 0)
             return;
         $scope.products = response.data;
-        $scope.hasProducts = true;
     });
+    $scope.delete = function (index) {
+        var product = $scope.products[index];
+        $http.delete('/product/' + product.id, {}).then(function () {
+            $scope.products.splice(index, 1);
+        });
+    };
 });

@@ -13,6 +13,10 @@ public class InMemoryRepository<TEntity extends Entity> implements Repository<TE
         return entities.containsKey(id);
     }
 
+    public void deleteById(String id) {
+        entities.remove(id);
+    }
+
     public void save(TEntity entity) {
         ensureId(entity);
         entities.put(entity.getId(), makeCopy(entity));

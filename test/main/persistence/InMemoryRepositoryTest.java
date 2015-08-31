@@ -57,6 +57,14 @@ public class InMemoryRepositoryTest {
     }
 
     @Test
+    public void afterDeletingAnEntity_repositoryDoesNotHaveItAnymore() {
+        FakeEntity entity = makeEntityWithId("existent id");
+        repository.save(entity);
+        repository.deleteById(entity.getId());
+        assertFalse(repository.hasWithId("existent id"));
+    }
+
+    @Test
     public void theReturnedEntityMustEqualTheSavedOne_butNotBeTheSame() {
         FakeEntity entity = makeNewEntity();
         repository.save(entity);

@@ -33,8 +33,9 @@ public class ReadProductsSummaryUseCaseTest {
         assertEquals(size, response.size());
     }
 
-    private void andItMustPresentAtIndex(int index, String name, String description, double price, int unitsInStock) {
+    private void andItMustPresentAtIndex(int index, String id, String name, String description, double price, int unitsInStock) {
         ProductSummary summary = response.get(index);
+        assertEquals(id, summary.id);
         assertEquals(name, summary.name);
         assertEquals(description, summary.description);
         assertEquals(price, summary.price, .001);
@@ -59,7 +60,7 @@ public class ReadProductsSummaryUseCaseTest {
         givenProduct("name 2", "description 2", 20.0, 2);
         whenReadingSummaries();
         thenTheSizeMustBe(2);
-        andItMustPresentAtIndex(0, "name 1", "description 1", 10.0, 1);
-        andItMustPresentAtIndex(1, "name 2", "description 2", 20.0, 2);
+        andItMustPresentAtIndex(0, "1", "name 1", "description 1", 10.0, 1);
+        andItMustPresentAtIndex(1, "2", "name 2", "description 2", 20.0, 2);
     }
 }

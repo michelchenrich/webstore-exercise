@@ -1,10 +1,11 @@
-<table class="table table-striped" ng-if="hasProducts">
+<table class="table table-striped">
     <thead>
     <tr>
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
         <th>Units in stock</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -13,6 +14,9 @@
         <td>{{product.description}}</td>
         <td>{{product.price}}</td>
         <td>{{product.unitsInStock}}</td>
+        <td>
+            <button class="btn btn-danger" ng-click="delete($index)">Delete</button>
+        </td>
     </tr>
     </tbody>
 </table>
