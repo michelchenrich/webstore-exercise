@@ -1,45 +1,57 @@
 package main.domain.product.creating;
 
+import main.domain.Text;
+import main.domain.product.Price;
 import main.domain.product.Product;
+import main.domain.product.Quantity;
 import main.persistence.product.ProductRepository;
 
 public class CreateProductUseCase {
     private final ProductRepository repository;
-    private final CreateProductRequest request;
+    private final Text name;
+    private final Text description;
+    private final Price price;
+    private final Quantity unitsInStock;
     private final CreateProductResponse response;
 
     public CreateProductUseCase(ProductRepository repository, CreateProductRequest request, CreateProductResponse response) {
         this.repository = repository;
-        this.request = request;
+        name = new Text(request.name);
+        description = new Text(request.description);
+        price = new Price(request.price);
+        unitsInStock = new Quantity(request.unitsInStock);
         this.response = response;
     }
 
     public void execute() {
-        Product product = buildProduct();
-        if (product.isValid())
-            save(product);
+        if (isValidRequest())
+            create();
         else
-            sendErrors(product);
+            sendErrors();
     }
 
-    private Product buildProduct() {
-        Product product = new Product();
-        product.setName(request.name);
-        product.setDescription(request.description);
-        product.setPrice(request.price);
-        product.setUnitsInStock(request.unitsInStock);
-        return product;
+    private boolean isValidRequest() {
+        return name.isValid() && description.isValid() && price.isValid() && unitsInStock.isValid();
     }
 
-    private void save(Product product) {
-        repository.save(product);
+    private void create() {
+        repository.save(makeProduct());
         response.success = true;
     }
 
-    private void sendErrors(Product product) {
-        response.invalidName = !product.hasValidName();
-        response.invalidDescription = !product.hasValidDescription();
-        response.invalidPrice = !product.hasValidPrice();
-        response.invalidUnitsInStock = !product.hasValidUnitsInStock();
+    private Product makeProduct() {
+        Product product = new Product();
+        product.setName(name);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setUnitsInStock(unitsInStock);
+        return product;
+    }
+
+    private void sendErrors() {
+        response.invalidName = !name.isValid();
+        response.invalidDescription = !description.isValid();
+        response.invalidPrice = !price.isValid();
+        response.invalidUnitsInStock = !unitsInStock.isValid();
     }
 }

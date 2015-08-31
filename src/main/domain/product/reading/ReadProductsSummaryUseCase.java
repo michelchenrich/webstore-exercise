@@ -21,10 +21,10 @@ public class ReadProductsSummaryUseCase {
 
     private ProductSummary makeProductSummary(Product product) {
         ProductSummary summary = new ProductSummary();
-        summary.name = product.getName();
-        summary.description = product.getDescription();
-        summary.price = product.getPrice();
-        summary.unitsInStock = product.getUnitsInStock();
+        summary.name = product.getName().toString();
+        summary.description = product.getDescription().toString();
+        summary.price = product.getPrice().toDouble();
+        summary.unitsInStock = product.getUnitsInStock().toInteger();
         return summary;
     }
 }

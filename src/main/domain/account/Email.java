@@ -1,11 +1,12 @@
 package main.domain.account;
 
-public class Email {
+import main.domain.Text;
+
+public class Email extends Text {
     public static final Email EMPTY = new Email("");
-    private final String value;
 
     public Email(String value) {
-        this.value = value == null ? "" : value.trim();
+        super(value);
     }
 
     public boolean isValid() {
@@ -22,17 +23,5 @@ public class Email {
 
     private boolean hasOnlyOneAtSymbol() {
         return value.indexOf('@') == value.lastIndexOf('@');
-    }
-
-    public String toString() {
-        return value;
-    }
-
-    public boolean equals(Object other) {
-        return other instanceof Email && equalsEmail((Email) other);
-    }
-
-    private boolean equalsEmail(Email other) {
-        return value.equals(other.value);
     }
 }
