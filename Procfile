@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* main.Main
+web: java -jar target/webstore.jar
