@@ -9,12 +9,16 @@ import static spark.SparkBase.port;
 public class Main {
     public static void main(String[] arguments) {
         setUpPort();
-        externalStaticFileLocation("resources/public");
+        setUpStaticFiles();
         setUpRoutes();
     }
 
     private static void setUpPort() {
         port(Integer.parseInt(System.getenv("PORT")));
+    }
+
+    private static void setUpStaticFiles() {
+        externalStaticFileLocation("resources/public");
     }
 
     private static void setUpRoutes() {
