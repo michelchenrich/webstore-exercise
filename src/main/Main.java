@@ -8,11 +8,17 @@ import static spark.SparkBase.port;
 
 public class Main {
     public static void main(String[] arguments) {
-        Dependencies dependencies = new Dependencies();
-        dependencies.userRepository = new InMemoryUserRepository();
-        dependencies.productRepository = new InMemoryProductRepository();
-        port(8081);
+        setUpPort();
         externalStaticFileLocation("resources/public");
+        setUpRoutes();
+    }
+
+    private static void setUpPort() {
+        port(Integer.parseInt(System.getenv("PORT")));
+    }
+
+    private static void setUpRoutes() {
+        Dependencies dependencies = buildDependencies();
         get("/read-user", new ReadUserRoute(dependencies));
         post("/login", new LoginRoute(dependencies));
         post("/logout", new LogoutRoute(dependencies));
@@ -20,5 +26,12 @@ public class Main {
         get("/products", new ProductsSummaryRoute(dependencies));
         post("/products", new CreateProductRoute(dependencies));
         delete("/product/:id", new DeleteProductRoute(dependencies));
+    }
+
+    private static Dependencies buildDependencies() {
+        Dependencies dependencies = new Dependencies();
+        dependencies.userRepository = new InMemoryUserRepository();
+        dependencies.productRepository = new InMemoryProductRepository();
+        return dependencies;
     }
 }
