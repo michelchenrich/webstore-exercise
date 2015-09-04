@@ -99,9 +99,9 @@ public class MongoProductRepository implements ProductRepository {
     }
 
     public Iterable<Product> getAll() {
-        List<Product> allProducts = new ArrayList<>();
+        List<Product> all = new ArrayList<>();
         for (Document document : products.find())
-            allProducts.add(convertFromDocument(document));
-        return allProducts;
+            all.add(convertFromDocument(document));
+        return all;
     }
 }

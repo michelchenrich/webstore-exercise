@@ -1,6 +1,6 @@
 package main;
 
-import main.persistence.account.InMemoryUserRepository;
+import main.persistence.account.mongo.MongoUserRepository;
 import main.persistence.product.mongo.MongoProductRepository;
 import main.routes.*;
 import static spark.Spark.*;
@@ -34,7 +34,7 @@ public class Main {
 
     private static Dependencies buildDependencies() {
         Dependencies dependencies = new Dependencies();
-        dependencies.userRepository = new InMemoryUserRepository();
+        dependencies.userRepository = new MongoUserRepository();
         dependencies.productRepository = new MongoProductRepository();
         return dependencies;
     }
