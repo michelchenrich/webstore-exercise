@@ -7,4 +7,5 @@ public interface Repository<TEntity extends Entity> {
     TEntity getById(String id);
     boolean hasWithId(String id);
     void deleteById(String id);
+    Iterable<TEntity> getAll();
 }
