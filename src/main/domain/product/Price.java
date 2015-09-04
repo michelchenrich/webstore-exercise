@@ -1,6 +1,7 @@
 package main.domain.product;
 
 public class Price {
+    public static final Price ZERO = new Price("0");
     private double value;
 
     public Price(String value) {

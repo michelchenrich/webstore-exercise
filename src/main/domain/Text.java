@@ -1,6 +1,7 @@
 package main.domain;
 
 public class Text {
+    public static final Text EMPTY = new Text("");
     protected final String value;
 
     public Text(String value) {

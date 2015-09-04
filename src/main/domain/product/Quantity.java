@@ -1,6 +1,7 @@
 package main.domain.product;
 
 public class Quantity {
+    public static final Quantity ZERO = new Quantity("0");
     private int value;
     private boolean wasParsed;
 

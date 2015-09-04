@@ -4,4 +4,8 @@ public class InMemoryProductRepositoryTest extends AbstractProductRepositoryTest
     protected ProductRepository makeRepository() {
         return new InMemoryProductRepository();
     }
+
+    protected String getExampleId() {
+        return "1";
+    }
 }

@@ -3,6 +3,7 @@ package main.domain.product;
 import main.domain.EntityTest;
 import main.domain.Text;
 import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 public class ProductTest extends EntityTest<Product> {
     protected Product makeNewSubject() {
@@ -24,5 +25,13 @@ public class ProductTest extends EntityTest<Product> {
         assertEquals(entity.getDescription(), copy.getDescription());
         assertEquals(entity.getPrice(), copy.getPrice());
         assertEquals(entity.getUnitsInStock(), copy.getUnitsInStock());
+    }
+
+    @Test
+    public void newProductHasEmptyAttributes() {
+        assertEquals(Text.EMPTY, subject.getName());
+        assertEquals(Text.EMPTY, subject.getDescription());
+        assertEquals(Price.ZERO, subject.getPrice());
+        assertEquals(Quantity.ZERO, subject.getUnitsInStock());
     }
 }

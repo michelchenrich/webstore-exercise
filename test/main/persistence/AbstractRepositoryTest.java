@@ -6,8 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 public abstract class AbstractRepositoryTest<FakeEntity extends Entity> {
-    protected Repository<FakeEntity> abstractRepository;
+    private Repository<FakeEntity> abstractRepository;
+    private String exampleId = getExampleId();
 
+    protected abstract String getExampleId();
     protected abstract Repository<FakeEntity> getAbstractRepository();
     protected abstract FakeEntity makeNewEntity();
     protected abstract FakeEntity makeEntityWithId(String id);
@@ -24,44 +26,47 @@ public abstract class AbstractRepositoryTest<FakeEntity extends Entity> {
     public void givenNewEntity_repositoryMustSetItsId() {
         FakeEntity entity = makeNewEntity();
         abstractRepository.save(entity);
-        assertEquals("1", entity.getId());
+        String id = entity.getId();
+        assertNotNull(id);
+        assertFalse(id.isEmpty());
     }
 
     @Test
     public void givenEntityWithId_repositoryMustKeepItsId() {
-        FakeEntity entity = makeEntityWithId("existent id");
+        FakeEntity entity = makeEntityWithId(exampleId);
         abstractRepository.save(entity);
-        assertEquals("existent id", entity.getId());
+        assertEquals(exampleId, entity.getId());
     }
 
     @Test
     public void beforeSavingTheEntity_repositoryDoesNotHaveIt() {
-        assertFalse(abstractRepository.hasWithId("1"));
+        assertFalse(abstractRepository.hasWithId(exampleId));
     }
 
     @Test(expected = EntityNotFoundException.class)
     public void attemptingToGetAnEntityThatDoesNotExist_resultsInException() {
-        abstractRepository.getById("1");
+        abstractRepository.getById(exampleId);
     }
 
     @Test
     public void afterSavingANewEntity_repositoryNowHasIt() {
-        abstractRepository.save(makeNewEntity());
-        assertTrue(abstractRepository.hasWithId("1"));
+        FakeEntity entity = makeNewEntity();
+        abstractRepository.save(entity);
+        assertTrue(abstractRepository.hasWithId(entity.getId()));
     }
 
     @Test
     public void afterSavingAnEntityWithId_repositoryThenHasIt() {
-        abstractRepository.save(makeEntityWithId("existent id"));
-        assertTrue(abstractRepository.hasWithId("existent id"));
+        abstractRepository.save(makeEntityWithId(exampleId));
+        assertTrue(abstractRepository.hasWithId(exampleId));
     }
 
     @Test
     public void afterDeletingAnEntity_repositoryDoesNotHaveItAnymore() {
-        FakeEntity entity = makeEntityWithId("existent id");
+        FakeEntity entity = makeEntityWithId(exampleId);
         abstractRepository.save(entity);
         abstractRepository.deleteById(entity.getId());
-        assertFalse(abstractRepository.hasWithId("existent id"));
+        assertFalse(abstractRepository.hasWithId(exampleId));
     }
 
     @Test

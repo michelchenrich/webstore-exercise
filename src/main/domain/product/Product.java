@@ -10,7 +10,7 @@ public class Product extends Entity {
     private Quantity unitsInStock;
 
     public Product() {
-        super("");
+        this("", Text.EMPTY, Text.EMPTY, Price.ZERO, Quantity.ZERO);
     }
 
     private Product(String id, Text name, Text description, Price price, Quantity unitsInStock) {
