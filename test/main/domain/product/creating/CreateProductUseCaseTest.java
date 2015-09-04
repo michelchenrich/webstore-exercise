@@ -2,8 +2,8 @@ package main.domain.product.creating;
 
 import main.domain.product.reading.ProductSummary;
 import main.domain.product.reading.ReadProductsSummaryUseCase;
-import main.persistence.product.InMemoryProductRepository;
 import main.persistence.product.ProductRepository;
+import main.persistence.product.inmemory.InMemoryProductRepository;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;

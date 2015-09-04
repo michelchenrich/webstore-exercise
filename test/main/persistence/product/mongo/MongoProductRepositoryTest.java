@@ -1,4 +1,4 @@
-package main.persistence.account;
+package main.persistence.product.mongo;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -7,7 +7,7 @@ import main.persistence.product.AbstractProductRepositoryTest;
 import main.persistence.product.ProductRepository;
 import org.junit.Before;
 
-public class MongoUserRepositoryTest extends AbstractProductRepositoryTest {
+public class MongoProductRepositoryTest extends AbstractProductRepositoryTest {
     protected ProductRepository makeRepository() {
         return new MongoProductRepository();
     }

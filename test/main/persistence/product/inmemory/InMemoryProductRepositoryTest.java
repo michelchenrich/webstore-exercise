@@ -1,4 +1,7 @@
-package main.persistence.product;
+package main.persistence.product.inmemory;
+
+import main.persistence.product.AbstractProductRepositoryTest;
+import main.persistence.product.ProductRepository;
 
 public class InMemoryProductRepositoryTest extends AbstractProductRepositoryTest {
     protected ProductRepository makeRepository() {

@@ -1,4 +1,4 @@
-package main.persistence.account;
+package main.persistence.product.mongo;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
