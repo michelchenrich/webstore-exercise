@@ -1,11 +1,11 @@
-package main.persistence;
+package main.domain;
 
-import main.domain.Entity;
+import main.persistence.EntityNotFoundException;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public abstract class AbstractRepositoryTest<FakeEntity extends Entity> {
+public abstract class RepositoryTest<FakeEntity extends Entity> {
     private Repository<FakeEntity> abstractRepository;
     private String exampleId = getExampleId();
 

@@ -1,7 +1,7 @@
 package main.domain.product.reading;
 
 import main.domain.product.Product;
-import main.persistence.product.ProductRepository;
+import main.domain.product.ProductRepository;
 
 import java.util.Collection;
 

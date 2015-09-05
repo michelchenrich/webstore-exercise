@@ -1,16 +1,13 @@
-package main.persistence.product;
+package main.domain.product;
 
+import main.domain.Repository;
+import main.domain.RepositoryTest;
 import main.domain.Text;
-import main.domain.product.Price;
-import main.domain.product.Product;
-import main.domain.product.Quantity;
-import main.persistence.AbstractRepositoryTest;
-import main.persistence.Repository;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public abstract class AbstractProductRepositoryTest extends AbstractRepositoryTest<Product> {
+public abstract class ProductRepositoryTest extends RepositoryTest<Product> {
     private static final Text NAME1 = new Text("Name 1");
     private static final Text DESCRIPTION1 = new Text("Description 1");
     private static final Price PRICE1 = new Price("10");

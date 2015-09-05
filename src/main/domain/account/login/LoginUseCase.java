@@ -3,7 +3,7 @@ package main.domain.account.login;
 import main.domain.account.Email;
 import main.domain.account.Password;
 import main.domain.account.User;
-import main.persistence.account.UserRepository;
+import main.domain.account.UserRepository;
 
 public class LoginUseCase {
     private final UserRepository repository;

@@ -1,16 +1,13 @@
-package main.persistence.account;
+package main.domain.account;
 
-import main.domain.account.Email;
-import main.domain.account.Password;
-import main.domain.account.User;
-import main.persistence.AbstractRepositoryTest;
+import main.domain.Repository;
+import main.domain.RepositoryTest;
 import main.persistence.EntityNotFoundException;
-import main.persistence.Repository;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public abstract class AbstractUserRepositoryTest extends AbstractRepositoryTest<User> {
+public abstract class UserRepositoryTest extends RepositoryTest<User> {
     private static final Email EMAIL1 = new Email("email1@host.com");
     private static final Email EMAIL2 = new Email("email2@host.com");
     private static final Password PASSWORD1 = new Password("password1");

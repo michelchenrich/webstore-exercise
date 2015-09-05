@@ -1,15 +1,15 @@
-package main.persistence.account.mongo;
+package main.persistence.mongo;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
-import main.persistence.account.AbstractUserRepositoryTest;
-import main.persistence.account.UserRepository;
+import main.domain.product.ProductRepository;
+import main.domain.product.ProductRepositoryTest;
 import org.junit.Before;
 
-public class MongoUserRepositoryTest extends AbstractUserRepositoryTest {
-    protected UserRepository makeRepository() {
-        return new MongoUserRepository();
+public class MongoProductRepositoryTest extends ProductRepositoryTest {
+    protected ProductRepository makeRepository() {
+        return new MongoProductRepository();
     }
 
     protected String getExampleId() {
@@ -26,6 +26,6 @@ public class MongoUserRepositoryTest extends AbstractUserRepositoryTest {
         MongoClientURI uri = new MongoClientURI(System.getenv("MONGOLAB_URI"));
         MongoClient client = new MongoClient(uri);
         MongoDatabase database = client.getDatabase(uri.getDatabase());
-        database.drop();
+        database.getCollection("products").drop();
     }
 }

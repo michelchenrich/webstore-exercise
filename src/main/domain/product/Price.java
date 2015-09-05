@@ -12,6 +12,10 @@ public class Price {
         }
     }
 
+    public String toString() {
+        return String.valueOf(toDouble());
+    }
+
     public double toDouble() {
         return value;
     }

@@ -1,8 +1,7 @@
-package main.persistence.product.inmemory;
+package main.persistence.inmemory;
 
 import main.domain.product.Product;
-import main.persistence.InMemoryRepository;
-import main.persistence.product.ProductRepository;
+import main.domain.product.ProductRepository;
 
 public class InMemoryProductRepository extends InMemoryRepository<Product> implements ProductRepository {
 }

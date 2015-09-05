@@ -1,6 +1,4 @@
-package main.persistence;
-
-import main.domain.Entity;
+package main.domain;
 
 public interface Repository<TEntity extends Entity> {
     void save(TEntity entity);

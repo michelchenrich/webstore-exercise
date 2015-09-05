@@ -1,10 +1,10 @@
 package main.domain.product.reading;
 
+import main.domain.product.ProductRepository;
 import main.domain.product.creating.CreateProductRequest;
 import main.domain.product.creating.CreateProductResponse;
 import main.domain.product.creating.CreateProductUseCase;
-import main.persistence.product.ProductRepository;
-import main.persistence.product.inmemory.InMemoryProductRepository;
+import main.persistence.inmemory.InMemoryProductRepository;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;

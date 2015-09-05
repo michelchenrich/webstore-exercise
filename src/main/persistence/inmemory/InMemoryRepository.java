@@ -1,6 +1,8 @@
-package main.persistence;
+package main.persistence.inmemory;
 
 import main.domain.Entity;
+import main.domain.Repository;
+import main.persistence.EntityNotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;

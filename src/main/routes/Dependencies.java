@@ -1,7 +1,7 @@
 package main.routes;
 
-import main.persistence.account.UserRepository;
-import main.persistence.product.ProductRepository;
+import main.domain.account.UserRepository;
+import main.domain.product.ProductRepository;
 
 public class Dependencies {
     public UserRepository userRepository;

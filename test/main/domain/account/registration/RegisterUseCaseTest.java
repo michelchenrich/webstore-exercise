@@ -1,13 +1,13 @@
 package main.domain.account.registration;
 
+import main.domain.account.UserRepository;
 import main.domain.account.login.LoginRequest;
 import main.domain.account.login.LoginResponse;
 import main.domain.account.login.LoginUseCase;
 import main.domain.account.reading.ReadUserRequest;
 import main.domain.account.reading.ReadUserResponse;
 import main.domain.account.reading.ReadUserUseCase;
-import main.persistence.account.UserRepository;
-import main.persistence.account.inmemory.InMemoryUserRepository;
+import main.persistence.inmemory.InMemoryUserRepository;
 import org.junit.Assert;
 import static org.junit.Assert.*;
 import org.junit.Before;

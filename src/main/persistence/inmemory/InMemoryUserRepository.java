@@ -1,10 +1,9 @@
-package main.persistence.account.inmemory;
+package main.persistence.inmemory;
 
 import main.domain.account.Email;
 import main.domain.account.User;
+import main.domain.account.UserRepository;
 import main.persistence.EntityNotFoundException;
-import main.persistence.InMemoryRepository;
-import main.persistence.account.UserRepository;
 
 public class InMemoryUserRepository extends InMemoryRepository<User> implements UserRepository {
     public boolean hasWithEmail(Email email) {

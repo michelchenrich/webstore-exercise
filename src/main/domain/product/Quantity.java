@@ -19,6 +19,10 @@ public class Quantity {
         return wasParsed && value >= 0;
     }
 
+    public String toString() {
+        return String.valueOf(toInteger());
+    }
+
     public int toInteger() {
         return value;
     }

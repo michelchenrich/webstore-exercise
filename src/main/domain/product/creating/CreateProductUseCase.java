@@ -3,8 +3,8 @@ package main.domain.product.creating;
 import main.domain.Text;
 import main.domain.product.Price;
 import main.domain.product.Product;
+import main.domain.product.ProductRepository;
 import main.domain.product.Quantity;
-import main.persistence.product.ProductRepository;
 
 public class CreateProductUseCase {
     private final ProductRepository repository;

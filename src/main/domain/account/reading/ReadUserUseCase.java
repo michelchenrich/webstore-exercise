@@ -1,7 +1,7 @@
 package main.domain.account.reading;
 
 import main.domain.account.User;
-import main.persistence.account.UserRepository;
+import main.domain.account.UserRepository;
 
 public class ReadUserUseCase {
     private final UserRepository repository;

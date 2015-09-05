@@ -1,7 +1,7 @@
 package main;
 
-import main.persistence.account.mongo.MongoUserRepository;
-import main.persistence.product.mongo.MongoProductRepository;
+import main.persistence.mongo.MongoProductRepository;
+import main.persistence.mongo.MongoUserRepository;
 import main.routes.*;
 import static spark.Spark.*;
 import static spark.SparkBase.port;
