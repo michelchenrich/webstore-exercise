@@ -8,7 +8,11 @@ public class InMemoryUserRepositoryTest extends UserRepositoryTest {
         return new InMemoryUserRepository();
     }
 
-    protected String getExampleId() {
+    protected String getValidId() {
         return "1";
+    }
+
+    protected String getInvalidId() {
+        return "";
     }
 }

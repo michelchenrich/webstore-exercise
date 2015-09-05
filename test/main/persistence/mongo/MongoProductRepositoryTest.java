@@ -12,8 +12,12 @@ public class MongoProductRepositoryTest extends ProductRepositoryTest {
         return new MongoProductRepository();
     }
 
-    protected String getExampleId() {
+    protected String getValidId() {
         return "55e8fd90d8699a04b5f41b8e";
+    }
+
+    protected String getInvalidId() {
+        return "";
     }
 
     @Before

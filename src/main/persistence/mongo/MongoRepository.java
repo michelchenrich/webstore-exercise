@@ -84,7 +84,11 @@ public abstract class MongoRepository<TEntity extends Entity> implements Reposit
     }
 
     public boolean hasWithId(String id) {
-        return hasWith(makeIdQuery(id));
+        try {
+            return hasWith(makeIdQuery(id));
+        } catch (IllegalArgumentException ignored) {
+            return false;
+        }
     }
 
     protected boolean hasWith(Bson query) {

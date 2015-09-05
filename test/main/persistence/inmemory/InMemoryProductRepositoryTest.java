@@ -8,7 +8,11 @@ public class InMemoryProductRepositoryTest extends ProductRepositoryTest {
         return new InMemoryProductRepository();
     }
 
-    protected String getExampleId() {
+    protected String getValidId() {
         return "1";
+    }
+
+    protected String getInvalidId() {
+        return "";
     }
 }
