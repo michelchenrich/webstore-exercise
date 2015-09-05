@@ -1,31 +1,18 @@
 package main.persistence.mongo;
 
 import main.domain.account.Email;
-import main.domain.account.Password;
 import main.domain.account.User;
 import main.domain.account.UserRepository;
+import main.persistence.mongo.converters.EmailConverter;
+import main.persistence.mongo.converters.UserConverter;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import java.util.Map;
-
 public class MongoUserRepository extends MongoRepository<User> implements UserRepository {
+    private EmailConverter emailConverter = new EmailConverter();
+
     public MongoUserRepository() {
-        super("users");
-    }
-
-    protected void putSetters(Map<String, main.persistence.mongo.Setter<User>> setters) {
-        setters.put("email", (p, v) -> p.setEmail(new Email(v.toString())));
-        setters.put("password", (p, v) -> p.setPassword(new Password(v.toString())));
-    }
-
-    protected void putGetters(Map<String, Getter<User>> getters) {
-        getters.put("email", User::getEmail);
-        getters.put("password", User::getPassword);
-    }
-
-    protected User makeNew() {
-        return new User();
+        super("users", new UserConverter());
     }
 
     public boolean hasWithEmail(Email email) {
@@ -37,8 +24,6 @@ public class MongoUserRepository extends MongoRepository<User> implements UserRe
     }
 
     private Bson makeEmailQuery(Email email) {
-        Document query = new Document();
-        query.put("email", email.toString());
-        return query;
+        return new Document("email", emailConverter.to(email));
     }
 }

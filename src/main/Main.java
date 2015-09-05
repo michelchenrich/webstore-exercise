@@ -1,5 +1,7 @@
 package main;
 
+import main.persistence.migration.ProductRepositoryMigrator;
+import main.persistence.migration.UserRepositoryMigrator;
 import main.persistence.mongo.MongoProductRepository;
 import main.persistence.mongo.MongoUserRepository;
 import main.routes.*;
@@ -34,8 +36,8 @@ public class Main {
 
     private static Dependencies buildDependencies() {
         Dependencies dependencies = new Dependencies();
-        dependencies.userRepository = new MongoUserRepository();
-        dependencies.productRepository = new MongoProductRepository();
+        dependencies.setUserRepository(new UserRepositoryMigrator(new MongoUserRepository(), new MongoUserRepository()));
+        dependencies.setProductRepository(new ProductRepositoryMigrator(new MongoProductRepository(), new MongoProductRepository()));
         return dependencies;
     }
 }

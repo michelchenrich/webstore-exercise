@@ -20,7 +20,7 @@ public class ProductsSummaryRoute implements Route {
 
     public Object handle(Request request, Response response) throws Exception {
         Collection<ProductSummary> output = new ArrayList<>();
-        new ReadProductsSummaryUseCase(dependencies.productRepository, output).execute();
+        new ReadProductsSummaryUseCase(dependencies.getProductRepository(), output).execute();
         return converter.toJson(output);
     }
 }

@@ -20,7 +20,7 @@ public class RegisterRoute extends UserRoute {
     private RegisterResponse executeUseCase(Request request) {
         RegisterResponse output = new RegisterResponse();
         RegisterRequest input = converter.fromJson(request.body(), RegisterRequest.class);
-        new RegisterUseCase(dependencies.userRepository, input, output).execute();
+        new RegisterUseCase(dependencies.getUserRepository(), input, output).execute();
         return output;
     }
 

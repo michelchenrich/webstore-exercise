@@ -20,7 +20,7 @@ public class ReadUserRoute extends UserRoute {
         ReadUserRequest input = new ReadUserRequest();
         input.id = request.cookie("user-id");
         ReadUserResponse output = new ReadUserResponse();
-        new ReadUserUseCase(dependencies.userRepository, input, output).execute();
+        new ReadUserUseCase(dependencies.getUserRepository(), input, output).execute();
         return output;
     }
 }

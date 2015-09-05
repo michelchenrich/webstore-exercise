@@ -19,7 +19,7 @@ public class CreateProductRoute implements Route {
     public Object handle(Request request, Response response) throws Exception {
         CreateProductResponse output = new CreateProductResponse();
         CreateProductRequest input = converter.fromJson(request.body(), CreateProductRequest.class);
-        new CreateProductUseCase(dependencies.productRepository, input, output).execute();
+        new CreateProductUseCase(dependencies.getProductRepository(), input, output).execute();
         return converter.toJson(output);
     }
 }

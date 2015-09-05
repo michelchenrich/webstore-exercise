@@ -14,7 +14,7 @@ public class DeleteProductRoute implements Route {
     }
 
     public Object handle(Request request, Response response) throws Exception {
-        dependencies.productRepository.deleteById(request.params(":id"));
+        dependencies.getProductRepository().deleteById(request.params(":id"));
         return converter.toJson(null);
     }
 }
