@@ -8,6 +8,7 @@ import main.domain.account.registration.RegisterRequest;
 import main.domain.account.registration.RegisterResponse;
 import main.domain.account.registration.RegisterUseCase;
 import main.persistence.inmemory.InMemoryUserRepository;
+import main.security.FakeEncryptor;
 import org.junit.Assert;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +25,7 @@ public class LoginUseCaseTest {
         request.email = email;
         request.password = password;
         request.passwordConfirmation = password;
-        new RegisterUseCase(repository, request, new RegisterResponse()).execute();
+        new RegisterUseCase(repository, request, new RegisterResponse(), new FakeEncryptor()).execute();
     }
 
     private void givenLogInData(String email, String password) {
@@ -33,7 +34,7 @@ public class LoginUseCaseTest {
     }
 
     private void whenLoggingIn() {
-        new LoginUseCase(repository, request, response).execute();
+        new LoginUseCase(repository, request, response, new FakeEncryptor()).execute();
     }
 
     private void thenEmailOrPasswordShouldBeInvalid() {

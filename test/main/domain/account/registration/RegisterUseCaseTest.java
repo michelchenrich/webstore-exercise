@@ -8,6 +8,7 @@ import main.domain.account.reading.ReadUserRequest;
 import main.domain.account.reading.ReadUserResponse;
 import main.domain.account.reading.ReadUserUseCase;
 import main.persistence.inmemory.InMemoryUserRepository;
+import main.security.FakeEncryptor;
 import org.junit.Assert;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -27,7 +28,7 @@ public class RegisterUseCaseTest {
     }
 
     private void whenRegistering() {
-        new RegisterUseCase(repository, request, response).execute();
+        new RegisterUseCase(repository, request, response, new FakeEncryptor()).execute();
     }
 
     private void thenItShouldBeSuccessful() {
@@ -63,7 +64,7 @@ public class RegisterUseCaseTest {
         request.email = email;
         request.password = password;
         LoginResponse response = new LoginResponse();
-        new LoginUseCase(repository, request, response).execute();
+        new LoginUseCase(repository, request, response, new FakeEncryptor()).execute();
         return response.success;
     }
 

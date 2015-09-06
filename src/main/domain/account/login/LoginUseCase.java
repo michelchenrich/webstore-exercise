@@ -1,21 +1,20 @@
 package main.domain.account.login;
 
-import main.domain.account.Email;
-import main.domain.account.Password;
-import main.domain.account.User;
-import main.domain.account.UserRepository;
+import main.domain.account.*;
 
 public class LoginUseCase {
     private final UserRepository repository;
+    private final Encryptor encryptor;
     private final LoginResponse response;
     private final Email email;
     private final Password password;
 
-    public LoginUseCase(UserRepository repository, LoginRequest request, LoginResponse response) {
+    public LoginUseCase(UserRepository repository, LoginRequest request, LoginResponse response, Encryptor encryptor) {
         this.repository = repository;
         password = new Password(request.password);
         email = new Email(request.email);
         this.response = response;
+        this.encryptor = encryptor;
     }
 
     public void execute() {
@@ -31,7 +30,7 @@ public class LoginUseCase {
 
     private void checkPassword() {
         User user = repository.getByEmail(email);
-        if (user.matchesPassword(password))
+        if (encryptor.matches(password, user.getPassword()))
             sendSuccess(user.getId());
         else
             sendInvalidEmailOrPassword();

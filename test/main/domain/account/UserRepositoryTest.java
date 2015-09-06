@@ -10,11 +10,11 @@ import org.junit.Test;
 public abstract class UserRepositoryTest extends RepositoryTest<User> {
     private static final Email EMAIL1 = new Email("email1@host.com");
     private static final Email EMAIL2 = new Email("email2@host.com");
-    private static final Password PASSWORD1 = new Password("password1");
-    private static final Password PASSWORD2 = new Password("password2");
+    private static final EncryptedPassword PASSWORD1 = new EncryptedPassword("", "password1");
+    private static final EncryptedPassword PASSWORD2 = new EncryptedPassword("", "password2");
     private UserRepository repository;
 
-    private User makeUser(Email email, Password password) {
+    private User makeUser(Email email, EncryptedPassword password) {
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);

@@ -20,7 +20,7 @@ public class LoginRoute extends UserRoute {
     private LoginResponse executeUseCase(Request request) {
         LoginRequest input = converter.fromJson(request.body(), LoginRequest.class);
         LoginResponse output = new LoginResponse();
-        new LoginUseCase(dependencies.getUserRepository(), input, output).execute();
+        new LoginUseCase(dependencies.getUserRepository(), input, output, dependencies.getEncryptor()).execute();
         return output;
     }
 

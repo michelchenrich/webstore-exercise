@@ -4,13 +4,13 @@ import main.domain.Entity;
 
 public class User extends Entity {
     private Email email;
-    private Password password;
+    private EncryptedPassword password;
 
     public User() {
-        this("", Email.EMPTY, Password.EMPTY);
+        this("", Email.EMPTY, EncryptedPassword.EMPTY);
     }
 
-    private User(String id, Email email, Password password) {
+    private User(String id, Email email, EncryptedPassword password) {
         super(id);
         this.email = email;
         this.password = password;
@@ -24,7 +24,7 @@ public class User extends Entity {
         return email;
     }
 
-    public Password getPassword() {
+    public EncryptedPassword getPassword() {
         return password;
     }
 
@@ -32,11 +32,7 @@ public class User extends Entity {
         this.email = email;
     }
 
-    public void setPassword(Password password) {
+    public void setPassword(EncryptedPassword password) {
         this.password = password;
-    }
-
-    public boolean matchesPassword(Password password) {
-        return this.password.equals(password);
     }
 }

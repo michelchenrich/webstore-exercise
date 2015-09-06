@@ -1,23 +1,22 @@
 package main.domain.account.registration;
 
-import main.domain.account.Email;
-import main.domain.account.Password;
-import main.domain.account.User;
-import main.domain.account.UserRepository;
+import main.domain.account.*;
 
 public class RegisterUseCase {
     private final UserRepository repository;
+    private final Encryptor encryptor;
     private final Email email;
     private final Password password;
     private final Password passwordConfirmation;
     private final RegisterResponse response;
 
-    public RegisterUseCase(UserRepository repository, RegisterRequest request, RegisterResponse response) {
+    public RegisterUseCase(UserRepository repository, RegisterRequest request, RegisterResponse response, Encryptor encryptor) {
         this.repository = repository;
         email = new Email(request.email);
         password = new Password(request.password);
         passwordConfirmation = new Password(request.passwordConfirmation);
         this.response = response;
+        this.encryptor = encryptor;
     }
 
     public void execute() {
@@ -34,7 +33,7 @@ public class RegisterUseCase {
     private void register() {
         User user = new User();
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(encryptor.encrypt(password));
         repository.save(user);
         response.success = true;
         response.id = user.getId();

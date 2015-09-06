@@ -5,6 +5,7 @@ import main.domain.account.registration.RegisterRequest;
 import main.domain.account.registration.RegisterResponse;
 import main.domain.account.registration.RegisterUseCase;
 import main.persistence.inmemory.InMemoryUserRepository;
+import main.security.FakeEncryptor;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class ReadUserUseCaseTest {
         request.email = email;
         request.password = request.passwordConfirmation = "Passw0rd";
         RegisterResponse response = new RegisterResponse();
-        new RegisterUseCase(repository, request, response).execute();
+        new RegisterUseCase(repository, request, response, new FakeEncryptor()).execute();
         idToRead = response.id;
     }
 

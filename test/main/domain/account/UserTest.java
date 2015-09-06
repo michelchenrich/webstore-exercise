@@ -13,7 +13,7 @@ public class UserTest extends EntityTest<User> {
         User user = makeNewSubject();
         user.setId("id");
         user.setEmail(new Email("email@host.com"));
-        user.setPassword(new Password("password"));
+        user.setPassword(new EncryptedPassword("", "password"));
         return user;
     }
 
@@ -26,7 +26,7 @@ public class UserTest extends EntityTest<User> {
     @Test
     public void newUser_hasEmptyAttributes() {
         assertEquals(Email.EMPTY, subject.getEmail());
-        assertEquals(Password.EMPTY, subject.getPassword());
+        assertEquals(EncryptedPassword.EMPTY, subject.getPassword());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class UserTest extends EntityTest<User> {
 
     @Test
     public void userKeepsThePasswordSet() {
-        Password password = new Password("whatever");
+        EncryptedPassword password = new EncryptedPassword("", "whatever");
         subject.setPassword(password);
         assertEquals(password, subject.getPassword());
     }

@@ -5,6 +5,7 @@ import main.persistence.migration.UserRepositoryMigrator;
 import main.persistence.mongo.MongoProductRepository;
 import main.persistence.mongo.MongoUserRepository;
 import main.routes.*;
+import main.security.JasyptEncryptor;
 import static spark.Spark.*;
 import static spark.SparkBase.port;
 
@@ -36,6 +37,7 @@ public class Main {
 
     private static Dependencies buildDependencies() {
         Dependencies dependencies = new Dependencies();
+        dependencies.setEncryptor(new JasyptEncryptor());
         dependencies.setUserRepository(new UserRepositoryMigrator(new MongoUserRepository(), new MongoUserRepository()));
         dependencies.setProductRepository(new ProductRepositoryMigrator(new MongoProductRepository(), new MongoProductRepository()));
         return dependencies;
