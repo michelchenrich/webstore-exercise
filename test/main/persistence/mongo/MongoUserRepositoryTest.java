@@ -5,24 +5,28 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 import main.domain.account.UserRepository;
 import main.domain.account.UserRepositoryTest;
+import org.bson.types.ObjectId;
 import org.junit.Before;
 
 public class MongoUserRepositoryTest extends UserRepositoryTest {
-    protected UserRepository makeRepository() {
-        return new MongoUserRepository();
+    private MongoUserRepository repository;
+
+    protected UserRepository getRepository() {
+        return repository;
     }
 
     protected String getValidId() {
-        return "55e8fd90d8699a04b5f41b8e";
+        return new ObjectId().toString();
     }
 
     protected String getInvalidId() {
-        return "";
+        return "some text";
     }
 
     @Before
     public void setUp() throws Exception {
         setUpDatabase();
+        repository = new MongoUserRepository();
         super.setUp();
     }
 
@@ -31,5 +35,6 @@ public class MongoUserRepositoryTest extends UserRepositoryTest {
         MongoClient client = new MongoClient(uri);
         MongoDatabase database = client.getDatabase(uri.getDatabase());
         database.getCollection("users").drop();
+        client.close();
     }
 }

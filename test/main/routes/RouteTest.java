@@ -15,13 +15,12 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-public class RouteTest {
-    public static final Charset UTF_8 = Charset.forName("UTF-8");
-    private String port;
+public abstract class RouteTest {
+    private static final Charset UTF_8 = Charset.forName("UTF-8");
+    private static final String PORT = System.getenv("PORT");
 
     @Before
     public void setUp() throws Exception {
-        port = System.getenv("PORT");
         Main.main();
         Spark.awaitInitialization();
     }
@@ -31,29 +30,43 @@ public class RouteTest {
         Spark.stop();
     }
 
+    protected void assertRouteResponse(String method, String path, String expectedResponse) throws Exception {
+        HttpURLConnection connection = makeConnection(path);
+        writeRequestHeader(method, connection);
+        assertResponse(expectedResponse, connection);
+    }
+
     protected void assertRouteResponse(String method, String path, String requestBody, String expectedResponse) throws Exception {
         byte[] bodyBytes = requestBody.getBytes(UTF_8);
         HttpURLConnection connection = makeConnection(path);
         writeRequestHeader(method, connection, bodyBytes);
         writeRequestBody(connection, bodyBytes);
-        assertEquals(expectedResponse, getResponse(connection));
+        assertResponse(expectedResponse, connection);
     }
 
     private HttpURLConnection makeConnection(String path) throws IOException {
-        return (HttpURLConnection) new URL("http://localhost:" + port + path).openConnection();
+        return (HttpURLConnection) new URL("http://localhost:" + PORT + path).openConnection();
+    }
+
+    private void writeRequestHeader(String method, HttpURLConnection connection) throws ProtocolException {
+        connection.setRequestMethod(method);
+        connection.setUseCaches(false);
+        connection.setDoOutput(true);
     }
 
     private void writeRequestHeader(String method, HttpURLConnection connection, byte[] bodyBytes) throws ProtocolException {
-        connection.setRequestMethod(method);
+        writeRequestHeader(method, connection);
         connection.setRequestProperty("Content-Length", String.valueOf(bodyBytes.length));
-        connection.setUseCaches(false);
-        connection.setDoOutput(true);
     }
 
     private void writeRequestBody(HttpURLConnection connection, byte[] bodyBytes) throws IOException {
         OutputStream outputStream = connection.getOutputStream();
         outputStream.write(bodyBytes);
         outputStream.close();
+    }
+
+    private void assertResponse(String expectedResponse, HttpURLConnection connection) throws IOException {
+        assertEquals(expectedResponse + "\r", getResponse(connection));
     }
 
     private String getResponse(HttpURLConnection connection) throws IOException {

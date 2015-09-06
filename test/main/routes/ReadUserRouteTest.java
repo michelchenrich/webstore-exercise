@@ -1,6 +1,10 @@
 package main.routes;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
-public class ReadUserRouteTest {
+public class ReadUserRouteTest extends RouteTest {
+    @Test
+    public void integration() throws Exception {
+        assertRouteResponse("GET", "/read-user", "{\"success\":false}");
+    }
 }

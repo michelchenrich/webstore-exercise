@@ -65,7 +65,7 @@ public abstract class MongoRepository<TEntity extends Entity> implements Reposit
     }
 
     protected boolean hasWith(Bson query) {
-        return collection.count(query) > 0;
+        return collection.find(query).limit(1).first() != null;
     }
 
     public TEntity getById(String id) {
@@ -83,7 +83,10 @@ public abstract class MongoRepository<TEntity extends Entity> implements Reposit
     }
 
     public void deleteById(String id) {
-        collection.deleteOne(makeIdQuery(id));
+        try {
+            collection.deleteOne(makeIdQuery(id));
+        } catch (IllegalArgumentException ignored) {
+        }
     }
 
     public Iterable<TEntity> getAll() {

@@ -4,7 +4,7 @@ import main.domain.product.ProductRepository;
 import main.domain.product.ProductRepositoryTest;
 
 public class InMemoryProductRepositoryTest extends ProductRepositoryTest {
-    protected ProductRepository makeRepository() {
+    protected ProductRepository getRepository() {
         return new InMemoryProductRepository();
     }
 

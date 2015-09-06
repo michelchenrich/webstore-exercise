@@ -21,10 +21,10 @@ public abstract class UserRepositoryTest extends RepositoryTest<User> {
         return user;
     }
 
-    protected abstract UserRepository makeRepository();
+    protected abstract UserRepository getRepository();
 
     protected Repository<User> getAbstractRepository() {
-        return makeRepository();
+        return getRepository();
     }
 
     protected User makeNewEntity() {
@@ -57,12 +57,17 @@ public abstract class UserRepositoryTest extends RepositoryTest<User> {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        repository = makeRepository();
+        repository = getRepository();
     }
 
     @Test
     public void withNoUsers_itMustNotHaveAny() {
         assertFalse(repository.hasWithEmail(EMAIL1));
+    }
+
+    @Test
+    public void givenNullEmailText_mustNotCrash() {
+        assertFalse(repository.hasWithEmail(new Email(null)));
     }
 
     @Test

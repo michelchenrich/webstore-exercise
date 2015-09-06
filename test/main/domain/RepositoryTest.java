@@ -33,9 +33,10 @@ public abstract class RepositoryTest<FakeEntity extends Entity> {
 
     @Test
     public void givenEntityWithId_repositoryMustKeepItsId() {
-        FakeEntity entity = makeEntityWithId(getValidId());
+        String id = getValidId();
+        FakeEntity entity = makeEntityWithId(id);
         abstractRepository.save(entity);
-        assertEquals(getValidId(), entity.getId());
+        assertEquals(id, entity.getId());
     }
 
     @Test
@@ -67,8 +68,9 @@ public abstract class RepositoryTest<FakeEntity extends Entity> {
 
     @Test
     public void afterSavingAnEntityWithId_repositoryThenHasIt() {
-        abstractRepository.save(makeEntityWithId(getValidId()));
-        assertTrue(abstractRepository.hasWithId(getValidId()));
+        String id = getValidId();
+        abstractRepository.save(makeEntityWithId(id));
+        assertTrue(abstractRepository.hasWithId(id));
     }
 
     @Test
@@ -77,6 +79,12 @@ public abstract class RepositoryTest<FakeEntity extends Entity> {
         abstractRepository.save(entity);
         abstractRepository.deleteById(entity.getId());
         assertFalse(abstractRepository.hasWithId(getValidId()));
+    }
+
+    @Test
+    public void deletingNonExistentEntitiesMustNotThrowException() {
+        abstractRepository.deleteById(getValidId());
+        abstractRepository.deleteById(getInvalidId());
     }
 
     @Test

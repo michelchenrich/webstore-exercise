@@ -18,10 +18,10 @@ public abstract class ProductRepositoryTest extends RepositoryTest<Product> {
     private static final Quantity UNITS_IN_STOCK2 = new Quantity("20");
     private ProductRepository repository;
 
-    protected abstract ProductRepository makeRepository();
+    protected abstract ProductRepository getRepository();
 
     protected Repository<Product> getAbstractRepository() {
-        return makeRepository();
+        return getRepository();
     }
 
     protected Product makeNewEntity() {
@@ -64,7 +64,7 @@ public abstract class ProductRepositoryTest extends RepositoryTest<Product> {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        repository = makeRepository();
+        repository = getRepository();
     }
 
     @Test

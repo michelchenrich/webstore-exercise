@@ -16,7 +16,7 @@ public class MongoUserRepository extends MongoRepository<User> implements UserRe
     }
 
     public boolean hasWithEmail(Email email) {
-        return hasWith(makeEmailQuery(email));
+        return email.isValid() && hasWith(makeEmailQuery(email));
     }
 
     public User getByEmail(Email email) {

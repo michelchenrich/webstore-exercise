@@ -4,7 +4,7 @@ import main.domain.account.UserRepository;
 import main.domain.account.UserRepositoryTest;
 
 public class InMemoryUserRepositoryTest extends UserRepositoryTest {
-    protected UserRepository makeRepository() {
+    protected UserRepository getRepository() {
         return new InMemoryUserRepository();
     }
 

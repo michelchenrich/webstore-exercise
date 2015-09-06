@@ -6,7 +6,7 @@ angular.module('webStore').controller('productsController', function ($scope, $h
     });
     $scope.delete = function (index) {
         var product = $scope.products[index];
-        $http.delete('/product/' + product.id, {}).then(function () {
+        $http.delete('/products/' + product.id, {}).then(function () {
             $scope.products.splice(index, 1);
         });
     };

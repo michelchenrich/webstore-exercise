@@ -5,31 +5,36 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 import main.domain.product.ProductRepository;
 import main.domain.product.ProductRepositoryTest;
+import org.bson.types.ObjectId;
 import org.junit.Before;
 
 public class MongoProductRepositoryTest extends ProductRepositoryTest {
-    protected ProductRepository makeRepository() {
-        return new MongoProductRepository();
+    private MongoProductRepository repository;
+
+    protected ProductRepository getRepository() {
+        return repository;
     }
 
     protected String getValidId() {
-        return "55e8fd90d8699a04b5f41b8e";
+        return new ObjectId().toString();
     }
 
     protected String getInvalidId() {
-        return "";
+        return "some text";
     }
 
     @Before
     public void setUp() throws Exception {
-        setUpDatabase();
+        dropCollection();
+        repository = new MongoProductRepository();
         super.setUp();
     }
 
-    private void setUpDatabase() {
+    private void dropCollection() {
         MongoClientURI uri = new MongoClientURI(System.getenv("MONGOLAB_URI"));
         MongoClient client = new MongoClient(uri);
         MongoDatabase database = client.getDatabase(uri.getDatabase());
         database.getCollection("products").drop();
+        client.close();
     }
 }
