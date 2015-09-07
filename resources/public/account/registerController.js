@@ -10,14 +10,11 @@ angular.module('webStore').controller('registerController', function ($scope, $h
                 loadSession();
             else {
                 $scope.status.email = response.data.invalidEmail ? 'has-error' : '';
-                $scope.messages.email = response.data.invalidEmail ?
-                    'Invalid e-mail, please use the following format: email@host.com' : '';
+                $scope.messages.email = response.data.invalidEmail ? 'Invalid e-mail, please use the following format: email@host.com' : '';
                 $scope.status.password = response.data.invalidPassword ? 'has-error' : '';
-                $scope.messages.password = response.data.invalidPassword ?
-                    'Invalid password, it must contain at least 8 characters, with at least one upper case letter, a lower case letter, and a number' : '';
+                $scope.messages.password = response.data.invalidPassword ? 'Invalid password, it must contain at least 8 characters, with at least one upper case letter, a lower case letter, and a number' : '';
                 $scope.status.passwordConfirmation = response.data.invalidPasswordConfirmation ? 'has-error' : '';
-                $scope.messages.passwordConfirmation = response.data.invalidPasswordConfirmation ?
-                    'Invalid password confirmation, it must match the password' : '';
+                $scope.messages.passwordConfirmation = response.data.invalidPasswordConfirmation ? 'Invalid password confirmation, it must match the password' : '';
             }
         });
     };
