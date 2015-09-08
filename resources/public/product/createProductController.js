@@ -1,4 +1,4 @@
-angular.module('webStore').controller('createProductController', function ($scope, $http, $location) {
+angular.module('webStore').controller('createProductController', function ($scope, $http, $state) {
     $scope.form = {name: '', description: '', price: '', unitsInStock: 0};
     $scope.messages = {form: '', name: '', description: '', price: '', unitsInStock: ''};
     $scope.status = {name: '', description: '', price: '', unitsInStock: ''};
@@ -7,7 +7,7 @@ angular.module('webStore').controller('createProductController', function ($scop
         $http.post('/products', $scope.form).then(function (response) {
             $scope.messages.form = '';
             if (response.data.success)
-                $location.path('/products');
+                $state.go('webStore.products');
             else {
                 $scope.status.name = response.data.invalidName ? 'has-error' : '';
                 $scope.messages.name = response.data.invalidName ? 'Invalid name, it cannot be blank' : '';

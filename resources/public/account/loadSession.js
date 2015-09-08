@@ -1,8 +1,10 @@
-angular.module('webStore').factory('loadSession', function ($rootScope, $http, $location) {
+angular.module('webStore').factory('loadSession', function ($rootScope, $http, $state) {
     return function () {
-        $location.path('/');
-        $http.get('/read-user').then(function (response) {
-            $rootScope.hasSession = response.data.success;
-        });
+        return $http.get('/read-user')
+            .then(function (response) {
+                $rootScope.loggedIn = response.data.success;
+                if (!$rootScope.loggedIn)
+                    $state.go('register');
+            });
     };
 });

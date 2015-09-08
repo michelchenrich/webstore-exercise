@@ -1,22 +1,38 @@
-<form ng-submit="submit()">
-    <div class="form-group {{status.email}}">
-        <label for="email">E-Mail</label>
-        <input class="form-control" type="text" id="email" ng-model="form.email" placeholder="example@host.com">
-        <span class="help-block">{{messages.email}}</span>
-    </div>
+<div class="col-md-offset-3 col-md-6">
+    <form class="form-horizontal" ng-submit="submit()">
+        <div class="form-group {{status.email}}">
+            <label class="col-sm-2 control-label" for="email">E-Mail</label>
 
-    <div class="form-group {{status.password}}">
-        <label for="password">Password</label>
-        <input class="form-control" type="password" id="password" ng-model="form.password">
-        <span class="help-block">{{messages.password}}</span>
-    </div>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="email" ng-model="form.email" placeholder="example@host.com">
+                <span class="help-block">{{messages.email}}</span>
+            </div>
+        </div>
 
-    <div class="form-group {{status.passwordConfirmation}}">
-        <label for="passwordConfirmation">Password confirmation</label>
-        <input class="form-control" type="password" id="passwordConfirmation" ng-model="form.passwordConfirmation">
-        <span class="help-block">{{messages.passwordConfirmation}}</span>
-    </div>
+        <div class="form-group {{status.password}}">
+            <label class="col-sm-2 control-label" for="password">Password</label>
 
-    <button class="btn btn-default" type="submit">Register</button>
-</form>
-<div>{{messages.form}}</div>
+            <div class="col-sm-10">
+                <input class="form-control" type="password" id="password" ng-model="form.password">
+                <span class="help-block">{{messages.password}}</span>
+            </div>
+        </div>
+
+        <div class="form-group {{status.passwordConfirmation}}">
+            <label class="col-sm-2 control-label" for="passwordConfirmation">Confirmation</label>
+
+            <div class="col-sm-10">
+                <input class="form-control" type="password" id="passwordConfirmation"
+                       ng-model="form.passwordConfirmation">
+                <span class="help-block">{{messages.passwordConfirmation}}</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-primary" type="submit">Register</button>
+            </div>
+        </div>
+    </form>
+    <div>{{messages.form}}</div>
+</div>
