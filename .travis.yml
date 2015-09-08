@@ -4,5 +4,4 @@ jdk:
 services:
   - mongodb
 env:
-  - PORT=8081
-  - MONGOLAB_URI=mongodb://localhost:27017/WebStoreTest
+  - PORT=8081 MONGOLAB_URI=mongodb://localhost:27017/WebStoreTest
