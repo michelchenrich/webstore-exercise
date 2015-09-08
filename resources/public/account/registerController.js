@@ -6,10 +6,9 @@ angular.module('webStore').controller('registerController', function ($scope, $h
         $scope.messages.form = 'Registering...';
         $http.post('/register', $scope.form).then(function (response) {
             $scope.messages.form = '';
-            if (response.data.success) {
-                $state.go('webStore');
-                loadSession();
-            } else {
+            if (response.data.success) 
+                loadSession().then(function () { $state.go('webStore'); });
+            else {
                 $scope.status.email = response.data.invalidEmail ? 'has-error' : '';
                 $scope.messages.email = response.data.invalidEmail ? 'Invalid e-mail, please use the following format: email@host.com' : '';
                 $scope.status.password = response.data.invalidPassword ? 'has-error' : '';
