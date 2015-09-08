@@ -7,7 +7,7 @@ angular.module('webStore').controller('registerController', function ($scope, $h
         $http.post('/register', $scope.form).then(function (response) {
             $scope.messages.form = '';
             if (response.data.success) {
-                $state.go('home');
+                $state.go('webStore');
                 loadSession();
             } else {
                 $scope.status.email = response.data.invalidEmail ? 'has-error' : '';
