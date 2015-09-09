@@ -1,15 +1,19 @@
-angular.module('webStore').controller('registerController', function ($scope, $http, loadSession, $state) {
+angular.module('webStore').controller('registerController', function ($scope, $http, $state, loginModal) {
     $scope.form = {email: '', password: '', passwordConfirmation: ''};
     $scope.messages = {form: '', email: '', password: '', passwordConfirmation: ''};
     $scope.status = {email: '', password: '', passwordConfirmation: ''};
+    $scope.login = function () {
+        loginModal().then(function () {
+            $state.go('webStore')
+        });
+    };
     $scope.submit = function () {
         $scope.messages.form = 'Registering...';
         $http.post('/register', $scope.form).then(function (response) {
             $scope.messages.form = '';
-            if (response.data.success) {
-                $state.go('home');
-                loadSession();
-            } else {
+            if (response.data.success)
+                $state.go('loadingSession');
+            else {
                 $scope.status.email = response.data.invalidEmail ? 'has-error' : '';
                 $scope.messages.email = response.data.invalidEmail ? 'Invalid e-mail, please use the following format: email@host.com' : '';
                 $scope.status.password = response.data.invalidPassword ? 'has-error' : '';

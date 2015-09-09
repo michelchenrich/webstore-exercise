@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand" ui-sref="webStore">WebStore Exercise</a></div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right" ng-controller="sessionController">
+                <li ng-show="loggedIn">
+                    <button class="btn btn-default navbar-btn" ng-click="logout()">Logout</button>
+                </li>
+                <li ng-hide="loggedIn">
+                    <button class="btn btn-default navbar-btn" ng-click="login()">Login</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Menu</div>
+                <div class="list-group">
+                    <a class="list-group-item" ui-sref-active="active" ui-sref="webStore.products">Products</a>
+                    <a class="list-group-item" ui-sref-active="active" ui-sref="webStore.orders">Orders</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9" ui-view></div>
+    </div>
+</div>

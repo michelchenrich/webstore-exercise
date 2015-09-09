@@ -22,10 +22,13 @@
                 </div>
                 <span class="help-block col-sm-offset-2 col-sm-10">{{message}}</span>
             </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-primary" ng-click="submit()">Log in</button>
+                    <button class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+                </div>
+            </div>
         </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-default" ng-click="$dismiss()">Cancel</button>
-        <button class="btn btn-primary" ng-click="submit()">Log in</button>
     </div>
 </div>

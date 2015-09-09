@@ -3,52 +3,20 @@
     <title>WebStore Exercise</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
-    <script type="text/javascript" src="http://angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="https://angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript"
             src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.4.min.js"></script>
     <script type="text/javascript" src="/webStore.js"></script>
-    <script type="text/javascript" src="/account/loadSession.js"></script>
     <script type="text/javascript" src="/account/loginModal.js"></script>
+    <script type="text/javascript" src="/account/loadSessionController.js"></script>
     <script type="text/javascript" src="/account/sessionController.js"></script>
     <script type="text/javascript" src="/account/loginController.js"></script>
     <script type="text/javascript" src="/account/registerController.js"></script>
     <script type="text/javascript" src="/product/productsController.js"></script>
     <script type="text/javascript" src="/product/createProductController.js"></script>
-    <script>
-        angular.module('webStore').run(function ($rootScope, $state, loginModal, loadSession) {
-            loadSession().then(function () {
-                $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-                    if (toState.data && toState.data.logInRequired && !$rootScope.loggedIn) {
-                        event.preventDefault();
-                        loginModal()
-                                .then(function () {
-                                    return $state.go(toState.name, toParams);
-                                })
-                                .catch(function () {
-                                    return $state.go('register');
-                                });
-                    }
-                });
-            });
-        });
-    </script>
+    <script type="text/javascript" src="/run.js"></script>
 </head>
 <body ng-app="webStore">
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand" ui-sref="webStore">WebStore Exercise</a></div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right" ng-controller="sessionController">
-                <li ng-show="loggedIn">
-                    <button class="btn btn-default navbar-btn" ng-click="logout()">Logout</button>
-                </li>
-                <li ng-hide="loggedIn">
-                    <button class="btn btn-default navbar-btn" ng-click="login()">Login</button>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<div class="container-fluid" ui-view></div>
+<div ui-view></div>
 </body>
 </html>

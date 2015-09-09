@@ -2,7 +2,7 @@ angular.module('webStore').service('loginModal', function ($modal, $rootScope) {
     return function () {
         return $modal
             .open({
-                templateUrl: 'account/login.html',
+                templateUrl: 'account/loginModal.html',
                 controller: 'loginController'
             })
             .result

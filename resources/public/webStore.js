@@ -1,18 +1,24 @@
 angular.module('webStore', ['ui.router', 'ui.bootstrap']).config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $stateProvider
+        .state('loadingSession', {
+            url: '/',
+            templateUrl: '/loading.html',
+            controller: 'loadSessionController'
+        })
         .state('register', {
             url: '/register',
             templateUrl: '/account/register.html',
-            controller: 'registerController'
+            controller: 'registerController',
+            data: {logInRequired: false}
         })
         .state('webStore', {
             url: '/webStore',
-            data: {logInRequired: true},
-            templateUrl: '/menu/menu.html',
+            templateUrl: '/webStore.html',
+            data: {logInRequired: true}
         })
         .state('webStore.orders', {
             url: '/orders',
-            templateUrl: '/underConstruction.html'
+            templateUrl: '/order/underConstruction.html'
         })
         .state('webStore.products', {
             url: '/products',
@@ -24,7 +30,7 @@ angular.module('webStore', ['ui.router', 'ui.bootstrap']).config(function ($stat
             templateUrl: '/product/create.html',
             controller: 'createProductController'
         });
-    $urlRouterProvider.otherwise('/webStore');
+    $urlRouterProvider.otherwise('/');
     $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
         var loginModal, $http, $state;
 
@@ -46,7 +52,7 @@ angular.module('webStore', ['ui.router', 'ui.bootstrap']).config(function ($stat
                         deferred.resolve($http(rejection.config));
                     })
                     .catch(function () {
-                        $state.go('home');
+                        $state.go('register');
                         deferred.reject(rejection);
                     });
 
