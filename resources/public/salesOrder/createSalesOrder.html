@@ -1,0 +1,22 @@
+<form ng-submit="submit()">
+    <div class="form-group {{status.productId}}">
+        <label for="productId">Product Id</label>
+        <input class="form-control" type="text" id="productId" ng-model="form.productId">
+        <span class="help-block">{{messages.productId}}</span>
+    </div>
+
+    <div class="form-group {{status.quantity}}">
+        <label for="quantity">Quantity</label>
+        <input class="form-control" type="number" id="quantity" ng-model="form.quantity">
+        <span class="help-block">{{messages.quantity}}</span>
+    </div>
+
+    <div class="form-group {{status.customerName}}">
+        <label for="customerName">Customer Name</label>
+        <input class="form-control" type="text" min="0" max="2147483647" step="0.01" id="price" ng-model="form.customerName">
+        <span class="help-block">{{messages.customerName}}</span>
+    </div>
+
+    <button class="btn btn-default" type="submit">Create</button>
+</form>
+<div>{{messages.form}}</div>
