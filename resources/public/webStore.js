@@ -17,8 +17,9 @@ angular.module('webStore', ['ui.router', 'ui.bootstrap']).config(function ($stat
             data: {logInRequired: true}
         })
         .state('webStore.orders', {
-            url: '/orders',
-            templateUrl: '/order/underConstruction.html'
+            url: '/orders/',
+            templateUrl: '/salesOrder/createSalesOrder.html',
+            controller: 'createSalesOrderController'
         })
         .state('webStore.products', {
             url: '/products',

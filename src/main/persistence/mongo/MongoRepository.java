@@ -24,7 +24,7 @@ public abstract class MongoRepository<TEntity extends Entity> implements Reposit
     }
 
     protected MongoCollection<Document> getCollection(String name) {
-        MongoClientURI uri = new MongoClientURI(System.getenv("MONGOLAB_URI"));
+		MongoClientURI uri = new MongoClientURI(System.getenv("MONGOLAB_URI"));
         MongoClient client = new MongoClient(uri);
         MongoDatabase database = client.getDatabase(uri.getDatabase());
         return database.getCollection(name);
@@ -79,7 +79,8 @@ public abstract class MongoRepository<TEntity extends Entity> implements Reposit
     }
 
     private Bson makeIdQuery(String id) {
-        return new Document("_id", new ObjectId(id));
+        Document document = new Document("_id", new ObjectId(id));
+        return document;
     }
 
     public void deleteById(String id) {

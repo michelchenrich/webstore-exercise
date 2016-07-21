@@ -1,6 +1,7 @@
 package main;
 
 import main.persistence.mongo.MongoProductRepository;
+import main.persistence.mongo.MongoSalesOrderRepository;
 import main.persistence.mongo.MongoUserRepository;
 import main.routes.*;
 import main.security.JasyptEncryptor;
@@ -34,6 +35,7 @@ public class Main {
         post("/register", new RegisterRoute(dependencies));
         get("/products", new ProductsSummaryRoute(dependencies));
         post("/products", new CreateProductRoute(dependencies));
+        post("/sales-order", new CreateSalesOrderRoute(dependencies));
         delete("/products/:id", new DeleteProductRoute(dependencies));
     }
 
@@ -42,6 +44,7 @@ public class Main {
         dependencies.setEncryptor(new JasyptEncryptor());
         dependencies.setUserRepository(new MongoUserRepository());
         dependencies.setProductRepository(new MongoProductRepository());
+        dependencies.setSalesOrderRepository(new MongoSalesOrderRepository());
         return dependencies;
     }
 }
