@@ -24,6 +24,7 @@ public abstract class MongoRepository<TEntity extends Entity> implements Reposit
     }
 
     protected MongoCollection<Document> getCollection(String name) {
+		MongoClientURI uri = new MongoClientURI(System.getenv("MONGOLAB_URI"));
         MongoClient client = new MongoClient(uri);
         MongoDatabase database = client.getDatabase(uri.getDatabase());
         return database.getCollection(name);
