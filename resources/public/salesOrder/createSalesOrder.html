@@ -1,7 +1,10 @@
 <form ng-submit="submit()">
     <div class="form-group {{status.productId}}">
-        <label for="productId">Product Id</label>
-        <input class="form-control" type="text" id="productId" ng-model="form.productId">
+        <label for="productId">Select product</label>
+        <br>
+        <select class="form-control" name="singleSelect" id="productId"
+            ng-model="selectedProduct" ng-options="product.name for product in products">
+        </select>
         <span class="help-block">{{messages.productId}}</span>
     </div>
 
@@ -13,7 +16,7 @@
 
     <div class="form-group {{status.customerName}}">
         <label for="customerName">Customer Name</label>
-        <input class="form-control" type="text" min="0" max="2147483647" step="0.01" id="price" ng-model="form.customerName">
+        <input class="form-control" id="customerName" ype="text" min="0" max="2147483647" step="0.01" id="price" ng-model="form.customerName">
         <span class="help-block">{{messages.customerName}}</span>
     </div>
 
